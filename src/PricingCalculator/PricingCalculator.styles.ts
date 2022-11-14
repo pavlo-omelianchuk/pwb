@@ -26,6 +26,7 @@ export const ResultWrapper = styled.div`
   height: 170px;
   width: 792px;
   margin: 0 auto 32px;
+  border-radius: 15px;
   /* max-width: 90vw; */
 
   .heading-2 {
