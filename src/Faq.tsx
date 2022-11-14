@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
 export const FaqComponent = () => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
-    setToggle((prev) => !prev);
+    setToggle(prev => !prev);
   };
   const Title = styled.h1`
     font-size: 1.5em;
@@ -20,8 +20,9 @@ export const FaqComponent = () => {
 
   return (
     <>
-      <button onClick={handleToggle}>{!toggle ? "Not Toggled" : "Toggled"}</button>
+      <button onClick={handleToggle}>{!toggle ? 'Not Toggled' : 'Toggled'}</button>
       <Wrapper>
+        <Title>Hello World!</Title>
         <Title>Hello World!</Title>
       </Wrapper>
     </>
