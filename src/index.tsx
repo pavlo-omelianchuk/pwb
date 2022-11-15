@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 import React, { Component } from 'react';
 
 import ReactDOM from 'react-dom/client';
-import { PricingCalculator } from './PricingCalculator/PricingCalculator';
+import { PricingCalculator } from './PricingCalculator';
 
 class App extends Component {
   render() {
