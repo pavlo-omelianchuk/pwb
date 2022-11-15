@@ -49,23 +49,44 @@ export const SliderWrapper = styled.div`
   margin-top: 80px;
 `;
 
-export const SitesSlider1 = styled(Slider)`
-  color: white;
-  height: 20px;
-
+export const SitesSlider = styled(Slider)`
+  /* & .MuiSlider-root {
+display: flex;
+flex-direction: column;
+justify-content: center;
+  } */
   & .MuiSlider-track {
     color: #f16d4d;
-    border-radius: 15px;
+    border-radius: 15px 0 0 15px;
     height: 20px;
+    position: relative;
+    left: -2% !important;
+    top: -18px;
   }
   & .MuiSlider-rail {
     color: #fff;
     opacity: 1;
     border-radius: 15px;
     height: 20px;
+    width: 104%;
+    position: relative;
+    left: -2%;
   }
   & .MuiSlider-mark {
     display: none;
+  }
+  & .MuiSlider-markLabel {
+    margin-top: 16.7px;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: inherit;
+
+    &:focus,
+    &:hover,
+    &.Mui-active,
+    &.Mui-focusVisible {
+      color: black;
+    }
   }
   & .MuiSlider-thumb {
     height: 42px;

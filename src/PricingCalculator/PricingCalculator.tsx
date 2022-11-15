@@ -5,7 +5,7 @@ import {
   PrimaryButton,
   ResultWrapper,
   SectionWrapper,
-  SitesSlider1,
+  SitesSlider,
   SliderWrapper,
 } from './PricingCalculator.styles';
 
@@ -70,7 +70,7 @@ export const PricingCalculator = () => {
       <SliderWrapper>
         <Heading5 className="heading-5">How many sites have you got?</Heading5>
         <Box sx={{ width: 792, margin: 'auto' }}>
-          <SitesSlider1
+          <SitesSlider
             aria-label="sites"
             defaultValue={1}
             valueLabelDisplay="auto"
