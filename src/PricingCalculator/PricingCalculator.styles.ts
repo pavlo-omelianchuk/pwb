@@ -1,3 +1,4 @@
+import Slider from '@mui/material/Slider';
 import styled from 'styled-components';
 
 export const SectionWrapper = styled.div`
@@ -9,20 +10,22 @@ export const Heading5 = styled.h5`
   margin: 0 auto 17px;
   text-align: center;
 `;
+export const PrimaryButton = styled.a`
+  min-width: 253px;
+`;
 
 export const ResultWrapper = styled.div`
   background: #ffffff;
   background-image: url('https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/6372c2a9d60cdc4b91d1ab70_Mask%20Group%20793%402x.png');
   background-repeat: no-repeat;
-  background-position: 100% 100%;
+  background-position: bottom;
   background-size: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
+  padding-top: 34px;
+  gap: 5px;
 
-  padding: 0.5em 1em 0.5em 3em;
   height: 170px;
   width: 792px;
   margin: 0 auto 32px;
@@ -35,6 +38,45 @@ export const ResultWrapper = styled.div`
 
   .heading-4 {
     margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 0;
+  }
+`;
+
+export const SliderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 80px;
+`;
+
+export const SitesSlider1 = styled(Slider)`
+  color: white;
+  height: 20px;
+
+  & .MuiSlider-track {
+    color: #f16d4d;
+    border-radius: 15px;
+    height: 20px;
+  }
+  & .MuiSlider-rail {
+    color: #fff;
+    opacity: 1;
+    border-radius: 15px;
+    height: 20px;
+  }
+  & .MuiSlider-mark {
+    display: none;
+  }
+  & .MuiSlider-thumb {
+    height: 42px;
+    width: 42px;
+    background-color: transparent;
+
+    &:focus,
+    &:hover,
+    &.Mui-active,
+    &.Mui-focusVisible {
+      box-shadow: inherit;
+    }
   }
 `;
