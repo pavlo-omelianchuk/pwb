@@ -131,6 +131,10 @@ export const ToggleDayBlock = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  h5 {
+    position: relative;
+    top: 4px;
+  }
 `;
 export const HoursBlock = styled.div`
   display: flex;
@@ -138,15 +142,19 @@ export const HoursBlock = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
+  span {
+    position: relative;
+    top: 4px;
+  }
 `;
 export const EditIconHolder = styled.div`
   cursor: pointer;
   svg {
-    position: relative;
-    top: -2px;
-
-   &:hover rect {
-      opacity: 0.5;
+    &:hover rect {
+      /* opacity: 0.5; */
+    }
+    &:hover path {
+      fill: black;
     }
   }
 `;
