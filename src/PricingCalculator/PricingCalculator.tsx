@@ -43,6 +43,7 @@ const marks = [
 
 export const PricingCalculator = () => {
   const [sitesValue, setSitesValue] = useState(1);
+  const [isEdit, setIsEdit] = useState(false);
   const [isMonday, setIsMonday] = useState(true);
   const [isTuesday, setIsTuesday] = useState(true);
   const [isWednesday, setIsWednesday] = useState(true);
@@ -110,19 +111,27 @@ export const PricingCalculator = () => {
             const handleSwitch = () => {
               setChecked(prev => !prev);
               if (day === 'Monday') setIsMonday(!checked);
-              if (day === 'Tuesday') setIsTuesday(!checked);
-              if (day === 'Wednesday') setIsWednesday(!checked);
-              if (day === 'Thursday') setIsThursday(!checked);
-              if (day === 'Friday') setIsFriday(!checked);
-              if (day === 'Saturday') setIsSaturday(!checked);
-              if (day === 'Sunday') setIsSunday(!checked);
+              // if (day === 'Tuesday') setIsTuesday(!checked);
+              // if (day === 'Wednesday') setIsWednesday(!checked);
+              // if (day === 'Thursday') setIsThursday(!checked);
+              // if (day === 'Friday') setIsFriday(!checked);
+              // if (day === 'Saturday') setIsSaturday(!checked);
+              // if (day === 'Sunday') setIsSunday(!checked);
             };
+
+            const handleEditHours = () => {
+              setIsEdit(prev => !prev);
+              console.log('first');
+            };
+
             return (
               <DayCardComponent
                 key={day}
                 day={day}
                 isChecked={checked}
+                isEdit={isEdit}
                 handleSwitch={handleSwitch}
+                handleEditHours={handleEditHours}
               />
             );
           })}

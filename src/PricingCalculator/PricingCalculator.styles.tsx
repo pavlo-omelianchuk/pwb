@@ -113,14 +113,19 @@ export const DaysWrapper = styled.div`
   width: 792px;
   max-width: 85vw;
 `;
-export const DayCard = styled.div`
+type DayCardProps = {
+  isEdit: boolean;
+};
+
+export const DayCard = styled.div<DayCardProps>`
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
-  height: 88px;
-  padding: 33px;
+  height: ${props => (props.isEdit ? '172px ' : '88px')};
+  padding: 27px 33px;
   background-color: white;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -131,10 +136,6 @@ export const ToggleDayBlock = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-  h5 {
-    position: relative;
-    top: 4px;
-  }
 `;
 export const HoursBlock = styled.div`
   display: flex;
@@ -157,6 +158,15 @@ export const EditIconHolder = styled.div`
       fill: black;
     }
   }
+`;
+
+export const EditHours = styled.div`
+  display: flex;
+  position: absolute;
+  top: 84px;
+`;
+export const MorningHours = styled.div`
+  display: flex;
 `;
 
 export const OpenDaySwitch = styled((props: SwitchProps) => (

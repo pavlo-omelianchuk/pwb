@@ -12,12 +12,20 @@ import {
 type DayCardComponentProps = {
   day: string;
   isChecked: boolean;
+  isEdit: boolean;
   handleSwitch: () => void;
+  handleEditHours: () => void;
 };
 
-export const DayCardComponent = ({ day, isChecked, handleSwitch }: DayCardComponentProps) => {
+export const DayCardComponent = ({
+  day,
+  isChecked,
+  isEdit,
+  handleSwitch,
+  handleEditHours,
+}: DayCardComponentProps) => {
   return (
-    <DayCard>
+    <DayCard isEdit={isEdit}>
       <ToggleDayBlock>
         <h5>{day}</h5>
         <FormGroup>
@@ -26,8 +34,9 @@ export const DayCardComponent = ({ day, isChecked, handleSwitch }: DayCardCompon
               color: isChecked ? '#F16D4D' : '#D5D5D5',
               position: 'absolute',
               left: '20%',
-              top: '50%',
-              transform: 'translateY(-50%)',
+              // top: '28%',
+              top: '20px',
+              // transform: 'translateY(-50%)',
             }}
             control={
               <OpenDaySwitch
@@ -44,7 +53,7 @@ export const DayCardComponent = ({ day, isChecked, handleSwitch }: DayCardCompon
       </ToggleDayBlock>
       <HoursBlock>
         <span>From 10AM to 12AM</span> <span>•</span> <span>From 10AM to 12AM</span>
-        <EditIconHolder>
+        <EditIconHolder onClick={handleEditHours}>
           <svg
             id="Icon_-_Edit"
             data-name="Icon - Edit"
@@ -62,6 +71,7 @@ export const DayCardComponent = ({ day, isChecked, handleSwitch }: DayCardCompon
           </svg>
         </EditIconHolder>
       </HoursBlock>
+      {/* <EditHoursComponent day={day} /> */}
     </DayCard>
   );
 };
