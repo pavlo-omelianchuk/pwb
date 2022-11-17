@@ -43,7 +43,6 @@ const marks = [
 
 export const PricingCalculator = () => {
   const [sitesValue, setSitesValue] = useState(1);
-  const [isEdit, setIsEdit] = useState(false);
   const [isMonday, setIsMonday] = useState(true);
   const [isTuesday, setIsTuesday] = useState(true);
   const [isWednesday, setIsWednesday] = useState(true);
@@ -56,6 +55,12 @@ export const PricingCalculator = () => {
     setSitesValue(value);
     return `${value}`;
   }
+
+  const handleSubmit = (values: any, actions: { setSubmitting: (arg0: boolean) => void }) => {
+    console.log({ values, actions });
+    alert(JSON.stringify(values, null, 2));
+    actions.setSubmitting(false);
+  };
 
   function PizzaThumbComponent(props: PizzaThumbComponentProps) {
     const { children, ...other } = props;
@@ -71,6 +76,7 @@ export const PricingCalculator = () => {
     );
   }
 
+  // const weekdays = ['Monday'];
   const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   return (
@@ -108,15 +114,17 @@ export const PricingCalculator = () => {
           <Heading5 className="heading-5">What days do you open?</Heading5>
           {weekdays.map(day => {
             const [checked, setChecked] = useState(true);
+            const [isEdit, setIsEdit] = useState(false);
+
             const handleSwitch = () => {
               setChecked(prev => !prev);
               if (day === 'Monday') setIsMonday(!checked);
-              // if (day === 'Tuesday') setIsTuesday(!checked);
-              // if (day === 'Wednesday') setIsWednesday(!checked);
-              // if (day === 'Thursday') setIsThursday(!checked);
-              // if (day === 'Friday') setIsFriday(!checked);
-              // if (day === 'Saturday') setIsSaturday(!checked);
-              // if (day === 'Sunday') setIsSunday(!checked);
+              if (day === 'Tuesday') setIsTuesday(!checked);
+              if (day === 'Wednesday') setIsWednesday(!checked);
+              if (day === 'Thursday') setIsThursday(!checked);
+              if (day === 'Friday') setIsFriday(!checked);
+              if (day === 'Saturday') setIsSaturday(!checked);
+              if (day === 'Sunday') setIsSunday(!checked);
             };
 
             const handleEditHours = () => {
@@ -132,6 +140,7 @@ export const PricingCalculator = () => {
                 isEdit={isEdit}
                 handleSwitch={handleSwitch}
                 handleEditHours={handleEditHours}
+                handleSubmit={handleSubmit}
               />
             );
           })}

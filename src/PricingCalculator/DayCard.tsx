@@ -1,6 +1,8 @@
+import { Divider } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import React from 'react';
+import { EditHoursComponent } from './EditHoursComponent';
 import {
   DayCard,
   EditIconHolder,
@@ -15,6 +17,7 @@ type DayCardComponentProps = {
   isEdit: boolean;
   handleSwitch: () => void;
   handleEditHours: () => void;
+  handleSubmit: any;
 };
 
 export const DayCardComponent = ({
@@ -23,6 +26,7 @@ export const DayCardComponent = ({
   isEdit,
   handleSwitch,
   handleEditHours,
+  handleSubmit,
 }: DayCardComponentProps) => {
   return (
     <DayCard isEdit={isEdit}>
@@ -34,9 +38,7 @@ export const DayCardComponent = ({
               color: isChecked ? '#F16D4D' : '#D5D5D5',
               position: 'absolute',
               left: '20%',
-              // top: '28%',
               top: '20px',
-              // transform: 'translateY(-50%)',
             }}
             control={
               <OpenDaySwitch
@@ -71,7 +73,8 @@ export const DayCardComponent = ({
           </svg>
         </EditIconHolder>
       </HoursBlock>
-      {/* <EditHoursComponent day={day} /> */}
+      <Divider />
+      <EditHoursComponent handleSubmit={handleSubmit} day={day} isEdit={isEdit} />
     </DayCard>
   );
 };

@@ -13,6 +13,7 @@ export const Heading5 = styled.h5`
 `;
 export const PrimaryButton = styled.a`
   min-width: 253px;
+  visibility: hidden;
 `;
 
 export const ResultWrapper = styled.div`
@@ -123,12 +124,20 @@ export const DayCard = styled.div<DayCardProps>`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
   width: 100%;
+  transition: height 500ms;
   height: ${props => (props.isEdit ? '172px ' : '88px')};
   padding: 27px 33px;
   background-color: white;
   border-radius: 15px;
   margin-bottom: 20px;
+  hr {
+    border-color: #ebebeb;
+    width: 100%;
+    margin: 20px 0;
+    display: ${props => (props.isEdit ? 'block ' : 'none')};
+  }
 `;
 export const ToggleDayBlock = styled.div`
   display: flex;
@@ -160,13 +169,16 @@ export const EditIconHolder = styled.div`
   }
 `;
 
-export const EditHours = styled.div`
+export const EditHours = styled.div<DayCardProps>`
   display: flex;
-  position: absolute;
-  top: 84px;
+  width: 100%;
+  transition: all 900ms;
+  opacity: ${props => (props.isEdit ? '1' : '0')};
+  display: ${props => (props.isEdit ? 'flex' : 'none')};
 `;
 export const MorningHours = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 export const OpenDaySwitch = styled((props: SwitchProps) => (
@@ -180,7 +192,7 @@ export const OpenDaySwitch = styled((props: SwitchProps) => (
 
   & .MuiSwitch-switchBase {
     padding: 3.5px !important;
-    transition-duration: 300ms;
+    /* transition-duration: 300ms; */
     &.Mui-checked {
       transform: translateX(37px);
       color: #f16d4d;
@@ -207,10 +219,9 @@ export const OpenDaySwitch = styled((props: SwitchProps) => (
   }
 
   & .MuiSwitch-track {
-    border-radius: 26/2;
+    /* border-radius: 26, 2; */
     background-color: #ebebeb;
     opacity: 1;
-    transition-duration: all 300ms;
   }
   .MuiFormControlLabel-label {
     color: red !important;
