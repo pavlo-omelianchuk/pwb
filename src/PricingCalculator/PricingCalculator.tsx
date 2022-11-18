@@ -1,4 +1,6 @@
 import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { SliderThumb } from '@mui/material/Slider';
 import { useEffect, useState } from 'react';
 import { GMV_RATE, WEEKS_IN_MONTH } from 'src/helpers/constants';
@@ -6,6 +8,7 @@ import { DayCardComponent } from './DayCard';
 import {
   DaysWrapper,
   Heading5,
+  MultiOpeningsOption,
   PrimaryButton,
   ResultWrapper,
   SectionWrapper,
@@ -65,6 +68,8 @@ export const PricingCalculator = () => {
 
   const [gmv, setGmv] = useState(51988);
   const [totalOrders, setTotalOrders] = useState(2810);
+
+  const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
 
   useEffect(() => {
     const totalMeals =
@@ -171,6 +176,20 @@ export const PricingCalculator = () => {
               />
             );
           })}
+          <MultiOpeningsOption isEdit flexEnd>
+            <FormControlLabel
+              value="Same every day"
+              control={
+                <Checkbox
+                  checked={checkedSameEveryDay}
+                  onChange={() => setCheckedSameEveryDay(prev => !prev)}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              }
+              label="Same every day"
+              labelPlacement="end"
+            />
+          </MultiOpeningsOption>
         </>
       </DaysWrapper>
     </SectionWrapper>

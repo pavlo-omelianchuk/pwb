@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export type DayCardProps = {
   isEdit: boolean;
+  flexEnd?: boolean;
 };
 
 export const SectionWrapper = styled.div`
@@ -119,7 +120,6 @@ export const DaysWrapper = styled.div`
   max-width: 85vw;
 `;
 
-
 export const DayCard = styled.div<DayCardProps>`
   position: relative;
   display: flex;
@@ -168,14 +168,13 @@ export const HoursBlock = styled.div<DayCardProps>`
 export const MultiOpeningsOption = styled.div<DayCardProps>`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: ${props => (props.flexEnd ? 'flex-end ' : 'flex-start')};
   align-items: center;
   gap: 15px;
   display: ${props => (props.isEdit ? 'flex ' : 'none')};
-  /* span {
-    position: relative;
-    top: 4px;
-  } */
+  label {
+    margin: 0;
+  }
 `;
 export const EditIconHolder = styled.div`
   cursor: pointer;
@@ -188,8 +187,6 @@ export const EditIconHolder = styled.div`
     }
   }
 `;
-
-
 
 export const OpenDaySwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />

@@ -44,11 +44,7 @@ export const DayCardComponent = ({ day, updateFormValues, sitesValue }: DayCardC
         eveningEndTime,
       });
 
-      updateFormValues(
-        day,
-        false,
-        orders.flat().reduce((a, b) => a + b, 0),
-      );
+      updateFormValues(day, false, orders);
       setShowDetailedTime(false);
     } else {
       setShowDetailedTime(true);
@@ -59,11 +55,8 @@ export const DayCardComponent = ({ day, updateFormValues, sitesValue }: DayCardC
         eveningStartTime,
         eveningEndTime,
       });
-      updateFormValues(
-        day,
-        false,
-        orders.flat().reduce((a, b) => a + b, 0),
-      );
+
+      updateFormValues(day, false, orders);
     }
 
     setIsEdit(false);
@@ -101,8 +94,21 @@ export const DayCardComponent = ({ day, updateFormValues, sitesValue }: DayCardC
               <OpenDaySwitch
                 sx={{ m: 1 }}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  const allDay = true;
+                  const orders = countTotalMeals({
+                    day,
+                    allDay,
+                    morningStartTime,
+                    morningEndTime,
+                    eveningStartTime,
+                    eveningEndTime,
+                  });
+
                   handleSwitch();
                   !!checkedDay && setIsEdit(false);
+                  !!checkedDay
+                    ? updateFormValues(day, false, 0)
+                    : updateFormValues(day, false, orders);
                 }}
                 checked={checkedDay}
               />
