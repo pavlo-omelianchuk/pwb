@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 
 import ReactDOM from 'react-dom/client';
 import { PricingCalculator } from './PricingCalculator';
+import { GlobalStyle } from './themeMUI/global';
 
 class App extends Component {
   render() {
     return (
       <div>
+        <GlobalStyle />
         <PricingCalculator />
       </div>
     );

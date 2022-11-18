@@ -38,6 +38,7 @@ export const StyledStuck = styled(Stack)`
       padding: 3px 0 0 26px;
     }
   }
+
 `;
 export const StyledForm = styled(Form)`
   display: flex;

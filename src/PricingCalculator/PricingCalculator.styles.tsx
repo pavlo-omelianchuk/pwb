@@ -174,14 +174,17 @@ export const MultiOpeningsOption = styled.div<DayCardProps>`
   display: ${props => (props.isEdit ? 'flex ' : 'none')};
   label {
     margin: 0;
+    .MuiFormControlLabel-label {
+      position: relative;
+      font-size: 18px;
+      font-weight: 500;
+      top: 2px;
+    }
   }
 `;
 export const EditIconHolder = styled.div`
   cursor: pointer;
   svg {
-    &:hover rect {
-      /* opacity: 0.5; */
-    }
     &:hover path {
       fill: black;
     }
@@ -229,8 +232,5 @@ export const OpenDaySwitch = styled((props: SwitchProps) => (
     /* border-radius: 26, 2; */
     background-color: #ebebeb;
     opacity: 1;
-  }
-  .MuiFormControlLabel-label {
-    color: red !important;
   }
 `;

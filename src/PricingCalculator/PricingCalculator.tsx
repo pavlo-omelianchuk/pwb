@@ -2,9 +2,13 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { SliderThumb } from '@mui/material/Slider';
+import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { GMV_RATE, WEEKS_IN_MONTH } from 'src/helpers/constants';
+import { playSound } from 'src/helpers/playSound';
+import { theme } from 'src/themeMUI/createTheme';
 import { DayCardComponent } from './DayCard';
+import { CheckedIcon } from './DayCard.styles';
 import {
   DaysWrapper,
   Heading5,
@@ -105,28 +109,18 @@ export const PricingCalculator = () => {
   }
 
   console.log(formValues);
-  const updateFormValues = (day: string, isFromCheck: boolean, totalMeals?: number) => {
-    !!isFromCheck
-      ? setFormValues(
-          [...formValues].map(object => {
-            if (object.day === day) {
-              return {
-                ...object,
-                isChecked: !object.isChecked,
-              };
-            } else return object;
-          }),
-        )
-      : setFormValues(
-          [...formValues].map(object => {
-            if (object.day === day) {
-              return {
-                ...object,
-                totalMeals: totalMeals,
-              };
-            } else return object;
-          }),
-        );
+  const updateFormValues = (day: string, isChecked: boolean, totalMeals?: number) => {
+    setFormValues(
+      [...formValues].map(object => {
+        if (object.day === day) {
+          return {
+            ...object,
+            totalMeals: totalMeals,
+            isChecked: isChecked,
+          };
+        } else return object;
+      }),
+    );
   };
   return (
     <SectionWrapper>
@@ -134,8 +128,8 @@ export const PricingCalculator = () => {
       <div className="container-small">
         {/* Section that renders results. Orders qty and GMV in pounds      */}
         <ResultWrapper>
-          <div className="heading-4">{Math.round(totalOrders)} Orders</div>
-          <div className="heading-2 text-orange">£{Math.round(gmv)} GMV</div>
+          <div className="heading-4">{Math.round(totalOrders)?.toLocaleString()} Orders</div>
+          <div className="heading-2 text-orange">£{Math.round(gmv)?.toLocaleString()} GMV</div>
           <div>per month</div>
         </ResultWrapper>
       </div>
@@ -146,6 +140,7 @@ export const PricingCalculator = () => {
       <SliderWrapper>
         <Heading5 className="heading-5">How many sites have you got?</Heading5>
         <Box sx={{ width: '100%', margin: 'auto' }}>
+        
           <SitesSlider
             aria-label="sites"
             defaultValue={1}
@@ -157,7 +152,7 @@ export const PricingCalculator = () => {
             marks={marks}
             slots={{ thumb: PizzaThumbComponent }}
             onChange={() => {
-              console.log('play sound');
+              playSound()
             }}
           />
         </Box>
@@ -176,20 +171,23 @@ export const PricingCalculator = () => {
               />
             );
           })}
-          <MultiOpeningsOption isEdit flexEnd>
-            <FormControlLabel
-              value="Same every day"
-              control={
-                <Checkbox
-                  checked={checkedSameEveryDay}
-                  onChange={() => setCheckedSameEveryDay(prev => !prev)}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-              }
-              label="Same every day"
-              labelPlacement="end"
-            />
-          </MultiOpeningsOption>
+          <ThemeProvider theme={theme}>
+            <MultiOpeningsOption isEdit flexEnd>
+              <FormControlLabel
+                value="Same every day"
+                control={
+                  <Checkbox
+                    checked={checkedSameEveryDay}
+                    onChange={() => setCheckedSameEveryDay(prev => !prev)}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    checkedIcon={<CheckedIcon sameEveryDay />}
+                  />
+                }
+                label="Same every day"
+                labelPlacement="end"
+              />
+            </MultiOpeningsOption>
+          </ThemeProvider>
         </>
       </DaysWrapper>
     </SectionWrapper>

@@ -34,16 +34,30 @@ export const countTotalMeals = ({
       const workingHours = allHours
         .map(hour => {
           // TODO
-          // catch error if  opening or close hour is 0
-          if (openingHour !== undefined && closingHour !== undefined && hour >= openingHour && hour < closingHour) {
+          //
+          if (
+            openingHour !== undefined &&
+            closingHour !== undefined &&
+            hour >= openingHour &&
+            hour < closingHour
+          ) {
             console.log('first');
             return hour;
           }
-          if (openingHour2 !== undefined && closingHour2 !== undefined && hour >= openingHour2 && hour < closingHour2) {
+          if (
+            openingHour2 !== undefined &&
+            closingHour2 !== undefined &&
+            hour >= openingHour2 &&
+            hour < closingHour2
+          ) {
             console.log('sec');
             return hour;
           }
-          if (openingHour2 !== undefined && closingHour2 !== undefined && closingHour2 < openingHour2) {
+          if (
+            openingHour2 !== undefined &&
+            closingHour2 !== undefined &&
+            closingHour2 < openingHour2
+          ) {
             console.log('thr');
             if (hour >= openingHour2 && hour <= 23) {
               return hour;

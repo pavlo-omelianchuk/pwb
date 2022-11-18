@@ -6,7 +6,7 @@ export const ampmTimeToNumbers = (time: string) => {
       return 1;
     case '02AM':
       return 2;
-    case '02AM':
+    case '03AM':
       return 3;
     case '04AM':
       return 4;
