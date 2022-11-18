@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { SliderThumb } from '@mui/material/Slider';
 import { useEffect, useState } from 'react';
 import { GMV_RATE, WEEKS_IN_MONTH } from 'src/helpers/constants';
