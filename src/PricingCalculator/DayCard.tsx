@@ -1,33 +1,92 @@
-import { Divider } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import React from 'react';
+import React, { useState } from 'react';
+import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { EditHoursComponent } from './EditHoursComponent';
 import {
   DayCard,
   EditIconHolder,
   HoursBlock,
+  MultiOpeningsOption,
   OpenDaySwitch,
   ToggleDayBlock,
 } from './PricingCalculator.styles';
 
 type DayCardComponentProps = {
+  sitesValue: number;
   day: string;
-  isChecked: boolean;
-  isEdit: boolean;
-  handleSwitch: () => void;
-  handleEditHours: () => void;
-  handleSubmit: any;
+  updateTotalWorkingHours: (day: string) => void;
 };
 
 export const DayCardComponent = ({
   day,
-  isChecked,
-  isEdit,
-  handleSwitch,
-  handleEditHours,
-  handleSubmit,
+  updateTotalWorkingHours,
+  sitesValue,
 }: DayCardComponentProps) => {
+  const [checkedDay, setCheckedDay] = useState(true);
+  const [checkedMulti, setCheckedMulti] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [morningStartTime, setMorningStartTime] = useState(null);
+  const [morningEndTime, setMorningEndTime] = useState(null);
+  const [eveningStartTime, setEveningStartTime] = useState(null);
+  const [eveningEndTime, setEveningEndTime] = useState(null);
+  const [showDetailedTime, setShowDetailedTime] = useState(false);
+
+  const handleSubmit = () => {
+    // if available 24 hours per day, - display "All day" message
+    // else, - display detailed Hours
+    if (morningStartTime === '12AM' && morningEndTime === '12AM') {
+      const allDay = true;
+      const orders = countTotalMeals({
+        day,
+        allDay,
+        morningStartTime,
+        morningEndTime,
+        eveningStartTime,
+        eveningEndTime,
+      });
+      console.log(
+        '===>>>',
+        orders.flat().reduce((a, b) => a + b, 0),
+      );
+      setShowDetailedTime(false);
+    } else {
+      setShowDetailedTime(true);
+      const orders = countTotalMeals({
+        day,
+        morningStartTime,
+        morningEndTime,
+        eveningStartTime,
+        eveningEndTime,
+      });
+      console.log(
+        '==>>>',
+        orders.flat().reduce((a, b) => a + b, 0),
+      );
+      console.log('==>>>', orders);
+    }
+
+    setIsEdit(false);
+    // alert(JSON.stringify(values, null, 2));
+  };
+
+  const handleSwitch = () => {
+    setCheckedDay(prev => !prev);
+    updateTotalWorkingHours(day);
+  };
+  const setStateData = {
+    setMorningStartTime,
+    setMorningEndTime,
+    setEveningStartTime,
+    setEveningEndTime,
+  };
+
+  const handleEditHours = () => {
+    setIsEdit(true);
+  };
+
   return (
     <DayCard isEdit={isEdit}>
       <ToggleDayBlock>
@@ -35,7 +94,7 @@ export const DayCardComponent = ({
         <FormGroup>
           <FormControlLabel
             sx={{
-              color: isChecked ? '#F16D4D' : '#D5D5D5',
+              color: checkedDay ? '#F16D4D' : '#D5D5D5',
               position: 'absolute',
               left: '20%',
               top: '20px',
@@ -45,16 +104,33 @@ export const DayCardComponent = ({
                 sx={{ m: 1 }}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   handleSwitch();
+                  !!checkedDay && setIsEdit(false);
                 }}
-                checked={isChecked}
+                checked={checkedDay}
               />
             }
-            label={isChecked ? 'Open' : 'Closed'}
+            label={checkedDay ? 'Open' : 'Closed'}
           />
         </FormGroup>
       </ToggleDayBlock>
-      <HoursBlock>
-        <span>From 10AM to 12AM</span> <span>•</span> <span>From 10AM to 12AM</span>
+      <HoursBlock isEdit={isEdit}>
+        {!!showDetailedTime ? (
+          <>
+            <span>
+              From {morningStartTime} to {morningEndTime}
+            </span>{' '}
+            {!!checkedMulti && (
+              <>
+                <span>•</span>
+                <span>
+                  From {eveningStartTime} to {eveningEndTime}
+                </span>
+              </>
+            )}
+          </>
+        ) : (
+          <div>All day</div>
+        )}
         <EditIconHolder onClick={handleEditHours}>
           <svg
             id="Icon_-_Edit"
@@ -73,8 +149,28 @@ export const DayCardComponent = ({
           </svg>
         </EditIconHolder>
       </HoursBlock>
+      <MultiOpeningsOption isEdit={isEdit}>
+        <FormControlLabel
+          value="Multiple openings"
+          control={
+            <Checkbox
+              checked={checkedMulti}
+              onChange={() => setCheckedMulti(prev => !prev)}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />
+          }
+          label="Multiple openings"
+          labelPlacement="end"
+        />
+      </MultiOpeningsOption>
       <Divider />
-      <EditHoursComponent handleSubmit={handleSubmit} day={day} isEdit={isEdit} />
+      <EditHoursComponent
+        handleSubmit={handleSubmit}
+        isEdit={isEdit}
+        isMulti={checkedMulti}
+        checkedDay={checkedDay}
+        setStateData={setStateData}
+      />
     </DayCard>
   );
 };

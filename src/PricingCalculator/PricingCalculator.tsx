@@ -40,27 +40,32 @@ const marks = [
     label: '5+',
   },
 ];
+export const weekdays = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+];
 
 export const PricingCalculator = () => {
   const [sitesValue, setSitesValue] = useState(1);
-  const [isMonday, setIsMonday] = useState(true);
-  const [isTuesday, setIsTuesday] = useState(true);
-  const [isWednesday, setIsWednesday] = useState(true);
-  const [isThursday, setIsThursday] = useState(true);
-  const [isFriday, setIsFriday] = useState(true);
-  const [isSaturday, setIsSaturday] = useState(true);
-  const [isSunday, setIsSunday] = useState(true);
+  const [formValues, setFormValues] = useState<any[]>([
+    { day: 'Monday', isChecked: true, totalMeals: 0 },
+    { day: 'Tuesday', isChecked: true, totalMeals: 0 },
+    { day: 'Wednesday', isChecked: true, totalMeals: 0 },
+    { day: 'Thursday', isChecked: true, totalMeals: 0 },
+    { day: 'Friday', isChecked: true, totalMeals: 0 },
+    { day: 'Saturday', isChecked: true, totalMeals: 0 },
+    { day: 'Sunday', isChecked: true, totalMeals: 0 },
+  ]);
 
   function valuetext(value: number) {
     setSitesValue(value);
     return `${value}`;
   }
-
-  const handleSubmit = (values: any, actions: { setSubmitting: (arg0: boolean) => void }) => {
-    console.log({ values, actions });
-    alert(JSON.stringify(values, null, 2));
-    actions.setSubmitting(false);
-  };
 
   function PizzaThumbComponent(props: PizzaThumbComponentProps) {
     const { children, ...other } = props;
@@ -76,13 +81,24 @@ export const PricingCalculator = () => {
     );
   }
 
-  // const weekdays = ['Monday'];
-  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
+  console.log(formValues);
+  const updateTotalWorkingHours = (day: string) => {
+    setFormValues(
+      [...formValues].map(object => {
+        if (object.day === day) {
+          return {
+            ...object,
+            isChecked: !object.isChecked,
+          };
+        } else return object;
+      }),
+    );
+  };
   return (
     <SectionWrapper>
       <Heading5 className="heading-5">Results</Heading5>
       <div className="container-small">
+        {/* Section that renders results. Orders qty and GMV in pounds      */}
         <ResultWrapper>
           <div className="heading-4">{sitesValue},000 Orders</div>
           <div className="heading-2 text-orange">£10,000 GMV</div>
@@ -90,6 +106,9 @@ export const PricingCalculator = () => {
         </ResultWrapper>
       </div>
       <PrimaryButton className="btn-primary w-button">Book a call</PrimaryButton>
+      {/* Section that renders sites user has, based on slider position from 1 to 5+
+      where 5+ means 5
+      */}
       <SliderWrapper>
         <Heading5 className="heading-5">How many sites have you got?</Heading5>
         <Box sx={{ width: '100%', margin: 'auto' }}>
@@ -109,38 +128,17 @@ export const PricingCalculator = () => {
           />
         </Box>
       </SliderWrapper>
+      {/* Section that renders days list Enabled by default  with full day opening hours */}
       <DaysWrapper>
         <>
           <Heading5 className="heading-5">What days do you open?</Heading5>
           {weekdays.map(day => {
-            const [checked, setChecked] = useState(true);
-            const [isEdit, setIsEdit] = useState(false);
-
-            const handleSwitch = () => {
-              setChecked(prev => !prev);
-              if (day === 'Monday') setIsMonday(!checked);
-              if (day === 'Tuesday') setIsTuesday(!checked);
-              if (day === 'Wednesday') setIsWednesday(!checked);
-              if (day === 'Thursday') setIsThursday(!checked);
-              if (day === 'Friday') setIsFriday(!checked);
-              if (day === 'Saturday') setIsSaturday(!checked);
-              if (day === 'Sunday') setIsSunday(!checked);
-            };
-
-            const handleEditHours = () => {
-              setIsEdit(prev => !prev);
-              console.log('first');
-            };
-
             return (
               <DayCardComponent
+                sitesValue={sitesValue}
                 key={day}
                 day={day}
-                isChecked={checked}
-                isEdit={isEdit}
-                handleSwitch={handleSwitch}
-                handleEditHours={handleEditHours}
-                handleSubmit={handleSubmit}
+                updateTotalWorkingHours={updateTotalWorkingHours}
               />
             );
           })}

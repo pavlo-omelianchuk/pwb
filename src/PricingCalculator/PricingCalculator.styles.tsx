@@ -2,6 +2,10 @@ import Slider from '@mui/material/Slider';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import styled from 'styled-components';
 
+export type DayCardProps = {
+  isEdit: boolean;
+};
+
 export const SectionWrapper = styled.div`
   width: 100%;
   text-align: center;
@@ -114,9 +118,7 @@ export const DaysWrapper = styled.div`
   width: 792px;
   max-width: 85vw;
 `;
-type DayCardProps = {
-  isEdit: boolean;
-};
+
 
 export const DayCard = styled.div<DayCardProps>`
   position: relative;
@@ -145,17 +147,35 @@ export const ToggleDayBlock = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  h5 {
+    font-size: inherit;
+  }
 `;
-export const HoursBlock = styled.div`
+export const HoursBlock = styled.div<DayCardProps>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
+  display: ${props => (props.isEdit ? 'none ' : 'flex')};
+
   span {
     position: relative;
     top: 4px;
+    font-size: 14px;
   }
+`;
+export const MultiOpeningsOption = styled.div<DayCardProps>`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  display: ${props => (props.isEdit ? 'flex ' : 'none')};
+  /* span {
+    position: relative;
+    top: 4px;
+  } */
 `;
 export const EditIconHolder = styled.div`
   cursor: pointer;
@@ -169,17 +189,7 @@ export const EditIconHolder = styled.div`
   }
 `;
 
-export const EditHours = styled.div<DayCardProps>`
-  display: flex;
-  width: 100%;
-  transition: all 900ms;
-  opacity: ${props => (props.isEdit ? '1' : '0')};
-  display: ${props => (props.isEdit ? 'flex' : 'none')};
-`;
-export const MorningHours = styled.div`
-  display: flex;
-  width: 100%;
-`;
+
 
 export const OpenDaySwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
