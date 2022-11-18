@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { SliderThumb } from '@mui/material/Slider';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { GMV_RATE, WEEKS_IN_MONTH } from 'src/helpers/constants';
 import { DayCardComponent } from './DayCard';
 import {
   DaysWrapper,
@@ -53,14 +54,31 @@ export const weekdays = [
 export const PricingCalculator = () => {
   const [sitesValue, setSitesValue] = useState(1);
   const [formValues, setFormValues] = useState<any[]>([
-    { day: 'Monday', isChecked: true, totalMeals: 0 },
-    { day: 'Tuesday', isChecked: true, totalMeals: 0 },
-    { day: 'Wednesday', isChecked: true, totalMeals: 0 },
-    { day: 'Thursday', isChecked: true, totalMeals: 0 },
-    { day: 'Friday', isChecked: true, totalMeals: 0 },
-    { day: 'Saturday', isChecked: true, totalMeals: 0 },
-    { day: 'Sunday', isChecked: true, totalMeals: 0 },
+    { day: 'Monday', isChecked: true, totalMeals: 76 },
+    { day: 'Tuesday', isChecked: true, totalMeals: 80 },
+    { day: 'Wednesday', isChecked: true, totalMeals: 78 },
+    { day: 'Thursday', isChecked: true, totalMeals: 89 },
+    { day: 'Friday', isChecked: true, totalMeals: 102 },
+    { day: 'Saturday', isChecked: true, totalMeals: 107 },
+    { day: 'Sunday', isChecked: true, totalMeals: 117 },
   ]);
+
+  const [gmv, setGmv] = useState(51988);
+  const [totalOrders, setTotalOrders] = useState(2810);
+
+  useEffect(() => {
+    const totalMeals =
+      Array.from(
+        formValues.map(day => {
+          return day.totalMeals;
+        }),
+      ).reduce((a, b) => a + b, 0) *
+      WEEKS_IN_MONTH *
+      sitesValue;
+    setTotalOrders(totalMeals);
+    setGmv(totalMeals * GMV_RATE);
+    return () => {};
+  }, [formValues, sitesValue]);
 
   function valuetext(value: number) {
     setSitesValue(value);
@@ -82,17 +100,28 @@ export const PricingCalculator = () => {
   }
 
   console.log(formValues);
-  const updateTotalWorkingHours = (day: string) => {
-    setFormValues(
-      [...formValues].map(object => {
-        if (object.day === day) {
-          return {
-            ...object,
-            isChecked: !object.isChecked,
-          };
-        } else return object;
-      }),
-    );
+  const updateFormValues = (day: string, isFromCheck: boolean, totalMeals?: number) => {
+    !!isFromCheck
+      ? setFormValues(
+          [...formValues].map(object => {
+            if (object.day === day) {
+              return {
+                ...object,
+                isChecked: !object.isChecked,
+              };
+            } else return object;
+          }),
+        )
+      : setFormValues(
+          [...formValues].map(object => {
+            if (object.day === day) {
+              return {
+                ...object,
+                totalMeals: totalMeals,
+              };
+            } else return object;
+          }),
+        );
   };
   return (
     <SectionWrapper>
@@ -100,8 +129,8 @@ export const PricingCalculator = () => {
       <div className="container-small">
         {/* Section that renders results. Orders qty and GMV in pounds      */}
         <ResultWrapper>
-          <div className="heading-4">{sitesValue},000 Orders</div>
-          <div className="heading-2 text-orange">£10,000 GMV</div>
+          <div className="heading-4">{Math.round(totalOrders)} Orders</div>
+          <div className="heading-2 text-orange">£{Math.round(gmv)} GMV</div>
           <div>per month</div>
         </ResultWrapper>
       </div>
@@ -138,7 +167,7 @@ export const PricingCalculator = () => {
                 sitesValue={sitesValue}
                 key={day}
                 day={day}
-                updateTotalWorkingHours={updateTotalWorkingHours}
+                updateFormValues={updateFormValues}
               />
             );
           })}

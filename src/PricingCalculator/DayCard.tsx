@@ -17,14 +17,10 @@ import {
 type DayCardComponentProps = {
   sitesValue: number;
   day: string;
-  updateTotalWorkingHours: (day: string) => void;
+  updateFormValues: (day: string, isFromCheck: boolean, totalMeals?: number) => void;
 };
 
-export const DayCardComponent = ({
-  day,
-  updateTotalWorkingHours,
-  sitesValue,
-}: DayCardComponentProps) => {
+export const DayCardComponent = ({ day, updateFormValues, sitesValue }: DayCardComponentProps) => {
   const [checkedDay, setCheckedDay] = useState(true);
   const [checkedMulti, setCheckedMulti] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -47,8 +43,10 @@ export const DayCardComponent = ({
         eveningStartTime,
         eveningEndTime,
       });
-      console.log(
-        '===>>>',
+
+      updateFormValues(
+        day,
+        false,
         orders.flat().reduce((a, b) => a + b, 0),
       );
       setShowDetailedTime(false);
@@ -61,11 +59,11 @@ export const DayCardComponent = ({
         eveningStartTime,
         eveningEndTime,
       });
-      console.log(
-        '==>>>',
+      updateFormValues(
+        day,
+        false,
         orders.flat().reduce((a, b) => a + b, 0),
       );
-      console.log('==>>>', orders);
     }
 
     setIsEdit(false);
@@ -74,7 +72,7 @@ export const DayCardComponent = ({
 
   const handleSwitch = () => {
     setCheckedDay(prev => !prev);
-    updateTotalWorkingHours(day);
+    updateFormValues(day, true);
   };
   const setStateData = {
     setMorningStartTime,
