@@ -20,12 +20,11 @@ import {
 } from './PricingCalculator.styles';
 
 type DayCardComponentProps = {
-  sitesValue: number;
   day: string;
   updateFormValues: (day: string, isFromCheck: boolean, totalMeals?: number) => void;
 };
 
-export const DayCardComponent = ({ day, updateFormValues, sitesValue }: DayCardComponentProps) => {
+export const DayCardComponent = ({ day, updateFormValues }: DayCardComponentProps) => {
   const [checkedDay, setCheckedDay] = useState(true);
   const [checkedMulti, setCheckedMulti] = useState(false);
   const [isEdit, setIsEdit] = useState(false);

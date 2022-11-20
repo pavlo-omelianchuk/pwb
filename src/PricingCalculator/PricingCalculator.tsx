@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { SliderThumb } from '@mui/material/Slider';
 import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import { GMV_RATE, WEEKS_IN_MONTH } from 'src/helpers/constants';
+import { GMV_RATE, marks, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
 import { playSound } from 'src/helpers/playSound';
 import { theme } from 'src/themeMUI/createTheme';
 import { DayCardComponent } from './DayCard';
 import { CheckedIcon } from './DayCard.styles';
+import { PizzaThumbComponent } from './PizzaComponent/PizzaComponent';
 import {
   DaysWrapper,
   Heading5,
@@ -19,44 +19,6 @@ import {
   SitesSlider,
   SliderWrapper,
 } from './PricingCalculator.styles';
-
-interface PizzaThumbComponentProps extends React.HTMLAttributes<unknown> {}
-
-const marks = [
-  {
-    value: 0,
-    label: '0',
-  },
-  {
-    value: 1,
-    label: '1',
-  },
-  {
-    value: 2,
-    label: '2',
-  },
-  {
-    value: 3,
-    label: '3',
-  },
-  {
-    value: 4,
-    label: '4',
-  },
-  {
-    value: 5,
-    label: '5+',
-  },
-];
-export const weekdays = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
 
 export const PricingCalculator = () => {
   const [sitesValue, setSitesValue] = useState(1);
@@ -73,7 +35,7 @@ export const PricingCalculator = () => {
   const [gmv, setGmv] = useState(51988);
   const [totalOrders, setTotalOrders] = useState(2810);
 
-  const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
+  const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(false);
 
   useEffect(() => {
     const totalMeals =
@@ -94,21 +56,8 @@ export const PricingCalculator = () => {
     return `${value}`;
   }
 
-  function PizzaThumbComponent(props: PizzaThumbComponentProps) {
-    const { children, ...other } = props;
-    return (
-      <SliderThumb {...other}>
-        {children}
-        <img
-          loading="lazy"
-          src="https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/6373a93204ec08003472ae81_Group%2018441.svg"
-          alt=""
-        />
-      </SliderThumb>
-    );
-  }
-
   console.log(formValues);
+
   const updateFormValues = (day: string, isChecked: boolean, totalMeals?: number) => {
     setFormValues(
       [...formValues].map(object => {
@@ -122,6 +71,7 @@ export const PricingCalculator = () => {
       }),
     );
   };
+
   return (
     <SectionWrapper>
       <Heading5 className="heading-5">Results</Heading5>
@@ -134,13 +84,12 @@ export const PricingCalculator = () => {
         </ResultWrapper>
       </div>
       <PrimaryButton className="btn-primary w-button">Book a call</PrimaryButton>
-      {/* Section that renders sites user has, based on slider position from 1 to 5+
+      {/* Section that renders sites qty, that user have, based on slider position from 1 to 5+
       where 5+ means 5
       */}
       <SliderWrapper>
         <Heading5 className="heading-5">How many sites have you got?</Heading5>
         <Box sx={{ width: '100%', margin: 'auto' }}>
-        
           <SitesSlider
             aria-label="sites"
             defaultValue={1}
@@ -152,7 +101,7 @@ export const PricingCalculator = () => {
             marks={marks}
             slots={{ thumb: PizzaThumbComponent }}
             onChange={() => {
-              playSound()
+              playSound();
             }}
           />
         </Box>
@@ -164,10 +113,10 @@ export const PricingCalculator = () => {
           {weekdays.map(day => {
             return (
               <DayCardComponent
-                sitesValue={sitesValue}
                 key={day}
                 day={day}
                 updateFormValues={updateFormValues}
+                
               />
             );
           })}
