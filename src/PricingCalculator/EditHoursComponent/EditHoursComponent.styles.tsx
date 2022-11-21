@@ -1,7 +1,7 @@
 import Stack from '@mui/material/Stack';
 import { Form } from 'formik';
 import styled from 'styled-components';
-import { DayCardProps } from './PricingCalculator.styles';
+import { DayCardProps } from '../DayCardComponent/DayCard.styles';
 
 export const StyledStuck = styled(Stack)`
   display: flex;
@@ -38,7 +38,6 @@ export const StyledStuck = styled(Stack)`
       padding: 3px 0 0 26px;
     }
   }
-
 `;
 export const StyledForm = styled(Form)`
   display: flex;

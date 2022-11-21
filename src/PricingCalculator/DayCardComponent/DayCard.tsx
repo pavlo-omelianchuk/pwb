@@ -8,16 +8,18 @@ import React, { useEffect, useState } from 'react';
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { playSound } from 'src/helpers/playSound';
 import { theme } from 'src/themeMUI/createTheme';
-import { CheckedIcon } from './DayCard.styles';
-import { EditHoursComponent } from './EditHoursComponent';
+import { EditHoursComponent } from '../EditHoursComponent/EditHoursComponent';
 import {
+  CheckedIcon,
   DayCard,
+  DisplayHoursBlock,
+  DisplayHoursBlockWrapper,
   EditIconHolder,
-  HoursBlock,
   MultiOpeningsOption,
   OpenDaySwitch,
+  StyledFormControlLabel,
   ToggleDayBlock,
-} from './PricingCalculator.styles';
+} from './DayCard.styles';
 
 type DayCardComponentProps = {
   checkedSameEveryDay: boolean;
@@ -68,6 +70,7 @@ export const DayCardComponent = ({
 
   useEffect(() => {
     if (!!checkedSameEveryDay && day !== 'Monday') {
+      //WIP
       // const orders = countTotalMeals({
       //   day,
       //   morningStartTime: JSON.parse(localStorage.getItem('mst') || '12AM'),
@@ -168,16 +171,13 @@ export const DayCardComponent = ({
   };
 
   return (
-    <DayCard isEdit={isEdit}>
+    <DayCard isEdit={isEdit} checkedDay={checkedDay}>
       <ToggleDayBlock>
         <h5>{day}</h5>
         <FormGroup>
-          <FormControlLabel
+          <StyledFormControlLabel
             sx={{
               color: checkedDay ? '#F16D4D' : '#D5D5D5',
-              position: 'absolute',
-              left: '20%',
-              top: '20px',
             }}
             control={
               <OpenDaySwitch
@@ -194,8 +194,8 @@ export const DayCardComponent = ({
         </FormGroup>
       </ToggleDayBlock>
       {checkedDay && (
-        <>
-          <HoursBlock isEdit={isEdit}>
+        <DisplayHoursBlockWrapper>
+          <DisplayHoursBlock isEdit={isEdit}>
             {!!showDetailedTime ? (
               <>
                 <span>
@@ -230,7 +230,7 @@ export const DayCardComponent = ({
                 />
               </svg>
             </EditIconHolder>
-          </HoursBlock>
+          </DisplayHoursBlock>
           <ThemeProvider theme={theme}>
             <MultiOpeningsOption isEdit={isEdit}>
               <FormControlLabel
@@ -248,7 +248,7 @@ export const DayCardComponent = ({
               />
             </MultiOpeningsOption>
           </ThemeProvider>
-        </>
+        </DisplayHoursBlockWrapper>
       )}
       <Divider />
       <EditHoursComponent

@@ -6,13 +6,12 @@ import { useEffect, useState } from 'react';
 import { GMV_RATE, marks, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
 import { playSound } from 'src/helpers/playSound';
 import { theme } from 'src/themeMUI/createTheme';
-import { DayCardComponent } from './DayCard';
-import { CheckedIcon } from './DayCard.styles';
+import { DayCardComponent } from './DayCardComponent/DayCard';
+import { CheckedIcon, MultiOpeningsOption } from './DayCardComponent/DayCard.styles';
 import { PizzaThumbComponent } from './PizzaComponent/PizzaComponent';
 import {
   DaysWrapper,
   Heading5,
-  MultiOpeningsOption,
   PrimaryButton,
   ResultWrapper,
   SectionWrapper,
@@ -83,6 +82,7 @@ export const PricingCalculator = () => {
           <div>per month</div>
         </ResultWrapper>
       </div>
+      {/* Button is invisible here, to hold a space. Will be rendered in Webflow  */}
       <PrimaryButton className="btn-primary w-button">Book a call</PrimaryButton>
       {/* Section that renders sites qty, that user have, based on slider position from 1 to 5+
       where 5+ means 5
