@@ -33,8 +33,6 @@ export const countTotalMeals = ({
     const arrayOfOpenedHours = () => {
       const workingHours = allHours
         .map(hour => {
-          // TODO
-          //
           if (
             openingHour !== undefined &&
             closingHour !== undefined &&
@@ -82,7 +80,7 @@ export const countTotalMeals = ({
     };
     workingHours = arrayOfOpenedHours();
   }
-  console.log(workingHours);
+  console.log('workingHours', workingHours);
 
   const totalOrders = (schema: any) => {
     const orders: any[] = schema?.map((hour: any) => {

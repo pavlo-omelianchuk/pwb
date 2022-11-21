@@ -35,7 +35,7 @@ export const PricingCalculator = () => {
   const [gmv, setGmv] = useState(51988);
   const [totalOrders, setTotalOrders] = useState(2810);
 
-  const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(false);
+  const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
 
   useEffect(() => {
     const totalMeals =
@@ -116,7 +116,8 @@ export const PricingCalculator = () => {
                 key={day}
                 day={day}
                 updateFormValues={updateFormValues}
-                
+                checkedSameEveryDay={checkedSameEveryDay}
+                setCheckedSameEveryDay={setCheckedSameEveryDay}
               />
             );
           })}
@@ -127,7 +128,9 @@ export const PricingCalculator = () => {
                 control={
                   <Checkbox
                     checked={checkedSameEveryDay}
-                    onChange={() => setCheckedSameEveryDay(prev => !prev)}
+                    onChange={() => {
+                      setCheckedSameEveryDay(prev => !prev);
+                    }}
                     inputProps={{ 'aria-label': 'controlled' }}
                     checkedIcon={<CheckedIcon sameEveryDay />}
                   />
