@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 import { Formik } from 'formik';
-import { theme } from 'src/themeMUI/createTheme';
+import { theme } from 'src/assets/themeMUI/createTheme';
 import { EditHours, StyledButton, StyledForm, StyledStuck } from './EditHoursComponent.styles';
 
 type EditHoursComponentProps = {

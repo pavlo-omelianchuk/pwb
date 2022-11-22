@@ -5,9 +5,9 @@ import FormGroup from '@mui/material/FormGroup';
 import { ThemeProvider } from '@mui/material/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
+import { theme } from 'src/assets/themeMUI/createTheme';
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { playSound } from 'src/helpers/playSound';
-import { theme } from 'src/themeMUI/createTheme';
 import { EditHoursComponent } from '../EditHoursComponent/EditHoursComponent';
 import {
   CheckedIcon,
