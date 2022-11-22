@@ -35,6 +35,7 @@ export const PricingCalculator = () => {
   const [totalOrders, setTotalOrders] = useState(2810);
 
   const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const totalMeals =
@@ -101,7 +102,14 @@ export const PricingCalculator = () => {
             marks={marks}
             slots={{ thumb: PizzaThumbComponent }}
             onChange={() => {
-              playSound();
+              if (!isPlaying) {
+                setIsPlaying(true);
+                playSound();
+              } else {
+                setTimeout(() => {
+                  setIsPlaying(false);
+                }, 1000);
+              }
             }}
           />
         </Box>
@@ -118,6 +126,8 @@ export const PricingCalculator = () => {
                 updateFormValues={updateFormValues}
                 checkedSameEveryDay={checkedSameEveryDay}
                 setCheckedSameEveryDay={setCheckedSameEveryDay}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
               />
             );
           })}

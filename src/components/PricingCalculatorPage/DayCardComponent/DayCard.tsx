@@ -22,6 +22,8 @@ import {
 } from './DayCard.styles';
 
 type DayCardComponentProps = {
+  isPlaying: boolean;
+  setIsPlaying: any;
   checkedSameEveryDay: boolean;
   setCheckedSameEveryDay: any;
   day: string;
@@ -31,6 +33,8 @@ type DayCardComponentProps = {
 export const DayCardComponent = ({
   day,
   updateFormValues,
+  isPlaying,
+  setIsPlaying,
   checkedSameEveryDay,
   setCheckedSameEveryDay,
 }: DayCardComponentProps) => {
@@ -140,7 +144,15 @@ export const DayCardComponent = ({
     }
 
     setIsEdit(false);
-    playSound();
+
+    if (!isPlaying) {
+      setIsPlaying(true);
+      playSound();
+    } else {
+      setTimeout(() => {
+        setIsPlaying(false);
+      }, 1000);
+    }
 
     // alert(JSON.stringify(values, null, 2));
   };
@@ -184,7 +196,14 @@ export const DayCardComponent = ({
                 sx={{ m: 1 }}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   handleSwitch();
-                  playSound();
+                  if (!isPlaying) {
+                    setIsPlaying(true);
+                    playSound();
+                  } else {
+                    setTimeout(() => {
+                      setIsPlaying(false);
+                    }, 1000);
+                  }
                 }}
                 checked={checkedDay}
               />
