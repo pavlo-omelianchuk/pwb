@@ -61,39 +61,41 @@ export const EditHoursComponent = ({
           <StyledForm>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StyledStuck>
-                <label htmlFor="morning-date-from">From</label>
-                <MobileTimePicker
-                  closeOnSelect
-                  views={['hours']}
-                  disabled={!checkedDay}
-                  value={morningStartValue}
-                  minutesStep={60}
-                  onChange={newValue => {
-                    setMorningStartValue(newValue);
-                  }}
-                  renderInput={params => {
-                    setMorningStartTime(params?.inputProps?.value?.replace(':00 ', ''));
-                    return <TextField id="morning-date-from" {...params} />;
-                  }}
-                />
-                <label htmlFor="morning-date-to">To</label>
-                <MobileTimePicker
-                  closeOnSelect
-                  views={['hours']}
-                  disabled={!checkedDay}
-                  value={morningEndValue}
-                  minutesStep={60}
-                  onChange={newValue => {
-                    setMorningEndValue(newValue);
-                  }}
-                  renderInput={params => {
-                    setMorningEndTime(params?.inputProps?.value?.replace(':00 ', ''));
-                    return <TextField id="morning-date-to" {...params} />;
-                  }}
-                />
+                <div id="morning-hours-block">
+                  <label htmlFor="morning-date-from">From</label>
+                  <MobileTimePicker
+                    closeOnSelect
+                    views={['hours']}
+                    disabled={!checkedDay}
+                    value={morningStartValue}
+                    minutesStep={60}
+                    onChange={newValue => {
+                      setMorningStartValue(newValue);
+                    }}
+                    renderInput={params => {
+                      setMorningStartTime(params?.inputProps?.value?.replace(':00 ', ''));
+                      return <TextField id="morning-date-from" {...params} />;
+                    }}
+                  />
+                  <label htmlFor="morning-date-to">To</label>
+                  <MobileTimePicker
+                    closeOnSelect
+                    views={['hours']}
+                    disabled={!checkedDay}
+                    value={morningEndValue}
+                    minutesStep={60}
+                    onChange={newValue => {
+                      setMorningEndValue(newValue);
+                    }}
+                    renderInput={params => {
+                      setMorningEndTime(params?.inputProps?.value?.replace(':00 ', ''));
+                      return <TextField id="morning-date-to" {...params} />;
+                    }}
+                  />
+                </div>
 
                 {!!isMulti && (
-                  <>
+                  <div id="evening-hours-block">
                     {' '}
                     <label id="sp-from" htmlFor="morning-date-from">
                       From
@@ -127,7 +129,7 @@ export const EditHoursComponent = ({
                         return <TextField id="evening-date-to" {...params} />;
                       }}
                     />
-                  </>
+                  </div>
                 )}
               </StyledStuck>
             </LocalizationProvider>

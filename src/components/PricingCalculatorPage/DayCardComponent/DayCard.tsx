@@ -39,7 +39,7 @@ export const DayCardComponent = ({
   setCheckedSameEveryDay,
 }: DayCardComponentProps) => {
   const [checkedDay, setCheckedDay] = useState(true);
-  const [checkedMulti, setCheckedMulti] = useState(false);
+  const [checkedMulti, setCheckedMulti] = useState(true);//
   const [isEdit, setIsEdit] = useState(false);
   const [morningStartTime, setMorningStartTime] = useState<null | string>(null);
   const [morningEndTime, setMorningEndTime] = useState<null | string>(null);

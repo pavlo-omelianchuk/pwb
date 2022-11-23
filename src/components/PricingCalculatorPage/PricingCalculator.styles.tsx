@@ -100,13 +100,43 @@ export const ResultWrapper = styled.div`
     width: 80px;
     z-index: 1;
   }
-  @media (width < 900px) {
+
+  @media (width < 650px) {
     justify-content: center;
     height: 280px;
     margin: 0;
     padding: 0;
-  }
-  @media (width < 650px) {
+    & #icon-4 {
+      position: absolute;
+      right: 138px;
+      top: -33px;
+      width: 85px;
+      z-index: 2;
+      transform: rotate(182deg);
+    }
+    & #icon-5 {
+      position: absolute;
+      right: 98px;
+      top: -34px;
+      width: 83px;
+      z-index: 2;
+      transform: rotate(208deg);
+    }
+    & #icon-6 {
+      position: absolute;
+      right: 59px;
+      top: -25px;
+      width: 71px;
+      z-index: 2;
+      transform: rotate(229deg);
+    }
+    & #icon-7 {
+      position: absolute;
+      right: -9px;
+      top: -16px;
+      width: 80px;
+      z-index: 1;
+    }
   }
 `;
 
