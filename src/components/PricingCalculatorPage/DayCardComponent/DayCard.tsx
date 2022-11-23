@@ -39,7 +39,7 @@ export const DayCardComponent = ({
   setCheckedSameEveryDay,
 }: DayCardComponentProps) => {
   const [checkedDay, setCheckedDay] = useState(true);
-  const [checkedMulti, setCheckedMulti] = useState(true);//
+  const [checkedMulti, setCheckedMulti] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [morningStartTime, setMorningStartTime] = useState<null | string>(null);
   const [morningEndTime, setMorningEndTime] = useState<null | string>(null);
@@ -70,28 +70,7 @@ export const DayCardComponent = ({
       // localStorage.setItem('mst', JSON.stringify(morningStartTime));
     }
     return () => {};
-  }, [morningStartTime, morningEndTime, checkedSameEveryDay]);
-
-  useEffect(() => {
-    if (!!checkedSameEveryDay && day !== 'Monday') {
-      //WIP
-      // const orders = countTotalMeals({
-      //   day,
-      //   morningStartTime: JSON.parse(localStorage.getItem('mst') || '12AM'),
-      //   morningEndTime: JSON.parse(localStorage.getItem('met') || '12AM'),
-      //   eveningStartTime,
-      //   eveningEndTime,
-      // });
-      // const sameAsMonday = localStorage.getItem('sameAsMonday');
-      // //   !sameAsMonday
-      // //     ? localStorage.setItem('sameAsMonday', JSON.stringify(morningStartTime))
-      // //     : JSON.parse(localStorage.getItem('user') || '');
-      // //  localStorage.setItem('sameAsMonday', JSON.stringify(morningStartTime));
-      // // console.log('======><<<<<<<<', day, orders);
-      // updateFormValues(day, true, orders);
-    }
-    return () => {};
-  }, [checkedSameEveryDay]);
+  }, [morningStartTime, morningEndTime]);
 
   const stateTimeValues = {
     morningStartValue,
@@ -183,7 +162,7 @@ export const DayCardComponent = ({
   };
 
   return (
-    <DayCard isEdit={isEdit} checkedDay={checkedDay}>
+    <DayCard isEdit={isEdit} checkedDay={checkedDay} checkedMulti={checkedMulti}>
       <ToggleDayBlock>
         <h5>{day}</h5>
         <FormGroup>
@@ -251,21 +230,23 @@ export const DayCardComponent = ({
           </EditIconHolder>
         </DisplayHoursBlock>
         <ThemeProvider theme={theme}>
-          <MultiOpeningsOption isEdit={isEdit}>
-            <FormControlLabel
-              value="Multiple openings"
-              control={
-                <Checkbox
-                  checked={checkedMulti}
-                  onChange={() => setCheckedMulti(prev => !prev)}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                  checkedIcon={<CheckedIcon />}
-                />
-              }
-              label="Multiple openings"
-              labelPlacement="end"
-            />
-          </MultiOpeningsOption>
+          {!!isEdit && (
+            <MultiOpeningsOption isEdit={isEdit} checkedMulti={checkedMulti}>
+              <FormControlLabel
+                value="Multiple openings"
+                control={
+                  <Checkbox
+                    checked={checkedMulti}
+                    onChange={() => setCheckedMulti(prev => !prev)}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                    checkedIcon={<CheckedIcon />}
+                  />
+                }
+                label="Multiple openings"
+                labelPlacement="end"
+              />
+            </MultiOpeningsOption>
+          )}
         </ThemeProvider>
       </DisplayHoursBlockWrapper>
 

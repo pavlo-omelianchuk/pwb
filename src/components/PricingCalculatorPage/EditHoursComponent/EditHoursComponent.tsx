@@ -58,7 +58,7 @@ export const EditHoursComponent = ({
             handleSubmit();
           }}
         >
-          <StyledForm>
+          <StyledForm checkedMulti={isMulti}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StyledStuck>
                 <div id="morning-hours-block">

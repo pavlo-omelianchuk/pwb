@@ -209,4 +209,8 @@ export const DaysWrapper = styled.div`
   margin: 80px auto 0;
   width: 792px;
   max-width: 85vw;
+  padding: 16px;
+  @media (width < 900px) {
+    max-width: 100vw;
+  }
 `;

@@ -10,6 +10,7 @@ export type DayCardProps = {
   isEdit?: boolean;
   checkedDay?: boolean;
   flexEnd?: boolean;
+  checkedMulti?: boolean;
 };
 
 export const CheckedIcon = styled.div<CheckedIconProps>`
@@ -37,8 +38,8 @@ export const DayCard = styled.div<DayCardProps>`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
   width: 100%;
+  flex-wrap: wrap;
   transition: height 1s;
   height: ${props => (props.isEdit ? '172px ' : '88px')};
   padding: 27px 33px;
@@ -56,9 +57,29 @@ export const DayCard = styled.div<DayCardProps>`
   @media (width < 900px) {
     transition: all ease-in-out 500ms;
     padding: 19px 15px;
-    min-height: ${props => (props.checkedDay ? '123px ' : '0px')};
-    height: ${props => (props.isEdit ? '292px ' : '0px')};
-    /* border: 1px solid #4cfe00; */
+    flex-wrap: nowrap;
+
+    min-height: ${props => (props.checkedDay ? '123px ' : '0')};
+    height: ${props =>
+      props.checkedMulti && props.isEdit
+        ? '292px'
+        : !props.checkedMulti && props.isEdit
+        ? '206px'
+        : ' '};
+    justify-content: flex-start;
+    flex-direction: column;
+    
+    hr {
+      margin: 10px 0;
+    }
+  }
+  @media (width < 430px) {
+    height: ${props =>
+      props.checkedMulti && props.isEdit
+        ? '292px'
+        : !props.checkedMulti && props.isEdit
+        ? '250px'
+        : ' '};
   }
 `;
 
@@ -77,7 +98,7 @@ export const ToggleDayBlock = styled.div`
     justify-content: space-between;
   }
   @media (width < 650px) {
-    width: 95%;
+    width: 100%;
   }
 `;
 
@@ -98,21 +119,7 @@ export const DisplayHoursBlockWrapper = styled.div<DayCardProps>`
     gap: 15px;
   }
   @media (width < 650px) {
-    width: 95%;
-  }
-`;
-
-export const StyledFormControlLabel = styled(FormControlLabel)`
-  position: absolute;
-  left: 20%;
-  top: 20px;
-  @media (width < 900px) {
-    position: relative;
-    left: 0;
-    top: 0;
     width: 100%;
-    margin: 0 !important;
-    /* border: 1px solid #000; */
   }
 `;
 
@@ -138,7 +145,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
   }
 `;
 export const MultiOpeningsOption = styled.div<DayCardProps>`
-  display: ${props => (props.isEdit ? 'flex' : 'none')};
+  display: flex;
   flex-direction: row;
   justify-content: ${props => (props.flexEnd ? 'flex-end' : 'flex-start')};
   align-items: center;
@@ -149,7 +156,7 @@ export const MultiOpeningsOption = styled.div<DayCardProps>`
 
     .MuiFormControlLabel-label {
       position: relative;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 500;
       top: 2px;
     }
@@ -213,5 +220,26 @@ export const OpenDaySwitch = styled((props: SwitchProps) => (
     /* border-radius: 26, 2; */
     background-color: #ebebeb;
     opacity: 1;
+  }
+`;
+
+export const StyledFormControlLabel = styled(FormControlLabel)`
+  position: absolute;
+  left: 20%;
+  top: 20px;
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+  }
+
+  @media (width < 900px) {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0 !important;
+    /* border: 1px solid #000; */
   }
 `;
