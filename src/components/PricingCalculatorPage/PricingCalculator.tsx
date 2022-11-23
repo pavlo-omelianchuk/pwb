@@ -7,7 +7,7 @@ import { theme } from 'src/assets/themeMUI/createTheme';
 import { GMV_RATE, marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
 import { playSound } from 'src/helpers/playSound';
 import { DayCardComponent } from './DayCardComponent/DayCard';
-import { CheckedIcon, MultiOpeningsOption } from './DayCardComponent/DayCard.styles';
+import { CheckedIcon, StyledCheckbox } from './DayCardComponent/DayCard.styles';
 import { PizzaThumbComponent } from './PizzaComponent/PizzaComponent';
 import {
   DaysWrapper,
@@ -82,7 +82,7 @@ export const PricingCalculator = () => {
           <div className="heading-2 text-orange">£{Math.round(gmv)?.toLocaleString()} GMV</div>
           <div>per month</div>
           {resultBlockIcons.map((image: any, key: number) => {
-            return <img src={image} id={`icon-${key.toLocaleString()}`} width='50px' />;
+            return <img src={image} id={`icon-${key.toLocaleString()}`} width="50px" />;
           })}
         </ResultWrapper>
       </div>
@@ -135,7 +135,7 @@ export const PricingCalculator = () => {
             );
           })}
           <ThemeProvider theme={theme}>
-            <MultiOpeningsOption isEdit flexEnd>
+            <StyledCheckbox isEdit flexEnd>
               <FormControlLabel
                 value="Same every day"
                 control={
@@ -151,7 +151,7 @@ export const PricingCalculator = () => {
                 label="Same every day"
                 labelPlacement="end"
               />
-            </MultiOpeningsOption>
+            </StyledCheckbox>
           </ThemeProvider>
         </>
       </DaysWrapper>

@@ -15,8 +15,8 @@ import {
   DisplayHoursBlock,
   DisplayHoursBlockWrapper,
   EditIconHolder,
-  MultiOpeningsOption,
   OpenDaySwitch,
+  StyledCheckbox,
   StyledFormControlLabel,
   ToggleDayBlock,
 } from './DayCard.styles';
@@ -231,7 +231,7 @@ export const DayCardComponent = ({
         </DisplayHoursBlock>
         <ThemeProvider theme={theme}>
           {!!isEdit && (
-            <MultiOpeningsOption isEdit={isEdit} checkedMulti={checkedMulti}>
+            <StyledCheckbox checkedMulti={checkedMulti}>
               <FormControlLabel
                 value="Multiple openings"
                 control={
@@ -245,7 +245,7 @@ export const DayCardComponent = ({
                 label="Multiple openings"
                 labelPlacement="end"
               />
-            </MultiOpeningsOption>
+            </StyledCheckbox>
           )}
         </ThemeProvider>
       </DisplayHoursBlockWrapper>

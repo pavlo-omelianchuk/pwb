@@ -68,7 +68,7 @@ export const DayCard = styled.div<DayCardProps>`
         : ' '};
     justify-content: flex-start;
     flex-direction: column;
-    
+
     hr {
       margin: 10px 0;
     }
@@ -144,7 +144,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
     gap: 15px;
   }
 `;
-export const MultiOpeningsOption = styled.div<DayCardProps>`
+export const StyledCheckbox = styled.div<DayCardProps>`
   display: flex;
   flex-direction: row;
   justify-content: ${props => (props.flexEnd ? 'flex-end' : 'flex-start')};
