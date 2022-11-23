@@ -7,7 +7,7 @@ type CheckedIconProps = {
 };
 
 export type DayCardProps = {
-  isEdit: boolean;
+  isEdit?: boolean;
   checkedDay?: boolean;
   flexEnd?: boolean;
 };
@@ -39,7 +39,7 @@ export const DayCard = styled.div<DayCardProps>`
   align-items: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  transition: height 500ms;
+  transition: height 1s;
   height: ${props => (props.isEdit ? '172px ' : '88px')};
   padding: 27px 33px;
   background-color: white;
@@ -51,12 +51,13 @@ export const DayCard = styled.div<DayCardProps>`
     width: 100%;
     margin: 20px 0;
     display: ${props => (props.isEdit ? 'block ' : 'none')};
+    transition: all ease-in-out 500ms;
   }
   @media (width < 900px) {
-    transition: all ease-in-out 1s;
+    transition: all ease-in-out 500ms;
     padding: 19px 15px;
     min-height: ${props => (props.checkedDay ? '123px ' : '0px')};
-    border: 1px solid #4cfe00;
+    /* border: 1px solid #4cfe00; */
   }
 `;
 
@@ -80,11 +81,16 @@ export const ToggleDayBlock = styled.div`
   }
 `;
 
-export const DisplayHoursBlockWrapper = styled.div`
+export const DisplayHoursBlockWrapper = styled.div<DayCardProps>`
+  transition: all ease-in-out 1000ms;
+  opacity: ${props => (props.checkedDay ? '1 ' : '0')};
+  position: relative;
+  top: ${props => (props.checkedDay ? '0 ' : '-5px')};
+
   @media (width < 900px) {
     width: 80%;
     margin: 0 auto;
-    display: flex;
+
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -116,7 +122,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
-  transition: all ease-in-out 2s;
+  transition: display ease-in-out 500ms;
   display: ${props => (props.isEdit ? 'none ' : 'flex')};
 
   span {
@@ -171,7 +177,7 @@ export const OpenDaySwitch = styled((props: SwitchProps) => (
 
   & .MuiSwitch-switchBase {
     padding: 3.5px !important;
-    /* transition-duration: 300ms; */
+
     &.Mui-checked {
       transform: translateX(37px);
       color: #f16d4d;

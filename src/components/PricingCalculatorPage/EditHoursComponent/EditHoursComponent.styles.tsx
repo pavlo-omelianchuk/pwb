@@ -57,7 +57,7 @@ export const EditHours = styled.div<DayCardProps>`
   align-items: center;
   width: 100%;
   height: 33px;
-  transition: all 900ms;
+  transition: all ease-in-out 1s;
 
   opacity: ${props => (props.isEdit ? '1' : '0')};
   display: ${props => (props.isEdit ? 'flex' : 'none')};

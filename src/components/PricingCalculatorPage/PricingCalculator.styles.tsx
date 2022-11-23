@@ -1,8 +1,5 @@
 import Slider from '@mui/material/Slider';
-import Switch, { SwitchProps } from '@mui/material/Switch';
 import styled from 'styled-components';
-
-
 
 export const SectionWrapper = styled.div`
   width: 100%;
@@ -19,19 +16,20 @@ export const PrimaryButton = styled.a`
 `;
 
 export const ResultWrapper = styled.div`
-  background: #ffffff;
-  background-image: url('https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/6372c2a9d60cdc4b91d1ab70_Mask%20Group%20793%402x.png');
+  /* background-image: url('https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/6372c2a9d60cdc4b91d1ab70_Mask%20Group%20793%402x.png');
   background-repeat: no-repeat;
   background-position: bottom;
-  background-size: 100%;
+  background-size: 100%; */
+  position: relative;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 34px;
   gap: 5px;
-
+  overflow: hidden;
   height: 170px;
-  width: 792px;
+  max-width: 792px;
   margin: 0 auto 32px;
   border-radius: 15px;
   /* max-width: 90vw; */
@@ -43,6 +41,72 @@ export const ResultWrapper = styled.div`
   .heading-4 {
     margin-bottom: 5px;
     margin-top: 0;
+  }
+
+  & #icon-0 {
+    position: absolute;
+    left: -19px;
+    bottom: -28px;
+    width: 121px;
+    z-index: 2;
+  }
+  & #icon-1 {
+    position: absolute;
+    left: 65px;
+    bottom: -31px;
+    width: 83px;
+    z-index: 2;
+  }
+  & #icon-2 {
+    position: absolute;
+    left: 112px;
+    bottom: -38px;
+    width: 80px;
+    z-index: 1;
+  }
+  & #icon-3 {
+    position: absolute;
+    left: 160px;
+    bottom: -16px;
+    width: 80px;
+    z-index: 2;
+    transform: rotate(338deg);
+  }
+  & #icon-4 {
+    position: absolute;
+    right: 138px;
+    bottom: -33px;
+    width: 85px;
+    z-index: 2;
+  }
+  & #icon-5 {
+    position: absolute;
+    right: 94px;
+    bottom: -34px;
+    width: 83px;
+    z-index: 2;
+  }
+  & #icon-6 {
+    position: absolute;
+    right: 49px;
+    bottom: -25px;
+    width: 71px;
+    z-index: 2;
+  }
+  & #icon-7 {
+    position: absolute;
+    right: -9px;
+    bottom: -16px;
+    width: 80px;
+    z-index: 1;
+  }
+  @media (width < 900px) {
+    justify-content: center;
+    height: 280px;
+    margin: 0;
+    padding: 0;
+  }
+  @media (width < 650px) {
   }
 `;
 
@@ -116,5 +180,3 @@ export const DaysWrapper = styled.div`
   width: 792px;
   max-width: 85vw;
 `;
-
-

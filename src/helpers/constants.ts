@@ -1,3 +1,12 @@
+import e1 from '../assets/images/e1.png';
+import e3 from '../assets/images/e3.png';
+import e4 from '../assets/images/e4.png';
+import e5 from '../assets/images/e5.png';
+import e6 from '../assets/images/e6.png';
+import e7 from '../assets/images/e7.png';
+import e8 from '../assets/images/e8.png';
+import ea2 from '../assets/images/ea2.png';
+
 export const ORDERS_QUANTITY_SCHEMA = [
   {
     Monday: [
@@ -225,3 +234,5 @@ export const weekdays = [
   'Saturday',
   'Sunday',
 ];
+
+export const resultBlockIcons = [e1, e3, e4, e5, e6, e7, e8, e3];

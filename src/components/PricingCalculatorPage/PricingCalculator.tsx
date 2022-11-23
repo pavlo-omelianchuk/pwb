@@ -4,7 +4,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
-import { GMV_RATE, marks, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
+import { GMV_RATE, marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
 import { playSound } from 'src/helpers/playSound';
 import { DayCardComponent } from './DayCardComponent/DayCard';
 import { CheckedIcon, MultiOpeningsOption } from './DayCardComponent/DayCard.styles';
@@ -81,6 +81,9 @@ export const PricingCalculator = () => {
           <div className="heading-4">{Math.round(totalOrders)?.toLocaleString()} Orders</div>
           <div className="heading-2 text-orange">£{Math.round(gmv)?.toLocaleString()} GMV</div>
           <div>per month</div>
+          {resultBlockIcons.map((image: any, key: number) => {
+            return <img src={image} id={`icon-${key.toLocaleString()}`} width='50px' />;
+          })}
         </ResultWrapper>
       </div>
       {/* Button is invisible here, to hold a space. Will be rendered in Webflow  */}
