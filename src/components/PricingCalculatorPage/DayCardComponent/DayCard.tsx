@@ -6,7 +6,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
-import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { countOpenedHours } from 'src/helpers/getOpenedHours';
 import { playSound } from 'src/helpers/playSound';
 import { EditHoursComponent } from '../EditHoursComponent/EditHoursComponent';
@@ -25,13 +24,15 @@ import {
 type DayCardComponentProps = {
   isPlaying: boolean;
   setIsPlaying: any;
-  checkedSameEveryDay: boolean;
   setCheckedSameEveryDay: any;
   day: string;
+  formValues: any[];
   updateFormValues: (
     day: string,
-    isFromCheck: boolean,
+    isChecked: boolean,
     workingHours: number[],
+    timeTable: string[],
+    timeValues: Dayjs | null,
   ) => void;
 };
 
@@ -40,10 +41,9 @@ export const DayCardComponent = ({
   updateFormValues,
   isPlaying,
   setIsPlaying,
-  checkedSameEveryDay,
+  formValues,
   setCheckedSameEveryDay,
 }: DayCardComponentProps) => {
-  const [checkedDay, setCheckedDay] = useState(true);
   const [checkedMulti, setCheckedMulti] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [morningStartTime, setMorningStartTime] = useState<null | string>(null);
@@ -68,14 +68,24 @@ export const DayCardComponent = ({
     if (morningStartTime === '12AM' && morningEndTime === '12AM') {
       setShowDetailedTime(false);
     }
-    if (day === 'Monday') {
-      localStorage.setItem('mst', JSON.stringify(morningStartTime));
-      localStorage.setItem('met', JSON.stringify(morningEndTime));
-      // localStorage.setItem('mst', JSON.stringify(morningStartTime));
-      // localStorage.setItem('mst', JSON.stringify(morningStartTime));
-    }
-    return () => {};
+    // if (day === 'Monday') {
+    //   localStorage.setItem('mst', JSON.stringify(morningStartTime));
+    //   localStorage.setItem('met', JSON.stringify(morningEndTime));
+    //   // localStorage.setItem('mst', JSON.stringify(morningStartTime));
+    //   // localStorage.setItem('mst', JSON.stringify(morningStartTime));
+    // }
+    // return () => {};
   }, [morningStartTime, morningEndTime]);
+
+  const currentDayFormValues = formValues
+    .map(dayState => {
+      if (dayState.day === day) {
+        return dayState;
+      }
+    })
+    .filter(Boolean)?.[0];
+
+  console.log('inside', day, currentDayFormValues);
 
   const stateTimeValues = {
     morningStartValue,
@@ -104,7 +114,7 @@ export const DayCardComponent = ({
     if (morningStartTime === '12AM' && morningEndTime === '12AM') {
       let workingHours = [...Array(24).keys()];
 
-      updateFormValues(day, true,  workingHours);
+      updateFormValues(day, true, workingHours);
       setShowDetailedTime(false);
     } else {
       setShowDetailedTime(true);
@@ -136,15 +146,11 @@ export const DayCardComponent = ({
     setCheckedSameEveryDay(false);
 
     let workingHours = [...Array(24).keys()];
-    setCheckedDay(prev => !prev);
-    !!checkedDay && setIsEdit(false);
-    !!checkedDay
-      ? updateFormValues(day, !checkedDay, [])
-      : updateFormValues(
-          day,
-          !checkedDay,
-          workingHours,
-        );
+
+    !!currentDayFormValues?.isChecked && setIsEdit(false);
+    !!currentDayFormValues?.isChecked
+      ? updateFormValues(day, !currentDayFormValues?.isChecked, [])
+      : updateFormValues(day, !currentDayFormValues?.isChecked, workingHours);
 
     setMorningStartValue(dayjs('2022-01-01T00:00:00.000Z'));
     setMorningEndValue(dayjs('2022-01-01T00:00:00.000Z'));
@@ -155,13 +161,17 @@ export const DayCardComponent = ({
   };
 
   return (
-    <DayCard isEdit={isEdit} checkedDay={checkedDay} checkedMulti={checkedMulti}>
+    <DayCard
+      isEdit={isEdit}
+      checkedDay={currentDayFormValues?.isChecked}
+      checkedMulti={checkedMulti}
+    >
       <ToggleDayBlock>
         <h5>{day}</h5>
         <FormGroup>
           <StyledFormControlLabel
             sx={{
-              color: checkedDay ? '#F16D4D' : '#D5D5D5',
+              color: currentDayFormValues?.isChecked ? '#F16D4D' : '#D5D5D5',
             }}
             control={
               <OpenDaySwitch
@@ -177,14 +187,14 @@ export const DayCardComponent = ({
                     }, 1000);
                   }
                 }}
-                checked={checkedDay}
+                checked={currentDayFormValues?.isChecked}
               />
             }
-            label={checkedDay ? 'Open' : 'Closed'}
+            label={currentDayFormValues?.isChecked ? 'Open' : 'Closed'}
           />
         </FormGroup>
       </ToggleDayBlock>
-      <DisplayHoursBlockWrapper checkedDay={checkedDay}>
+      <DisplayHoursBlockWrapper checkedDay={currentDayFormValues?.isChecked}>
         <DisplayHoursBlock isEdit={isEdit}>
           {!!showDetailedTime ? (
             <>
@@ -248,7 +258,7 @@ export const DayCardComponent = ({
         handleSubmit={handleSubmit}
         isEdit={isEdit}
         isMulti={checkedMulti}
-        checkedDay={checkedDay}
+        checkedDay={currentDayFormValues?.isChecked}
         setStateData={setStateData}
         stateTimeValues={stateTimeValues}
       />

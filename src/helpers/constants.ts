@@ -1,12 +1,3 @@
-import e1 from '../assets/images/e1.png';
-import e3 from '../assets/images/e3.png';
-import e4 from '../assets/images/e4.png';
-import e5 from '../assets/images/e5.png';
-import e6 from '../assets/images/e6.png';
-import e7 from '../assets/images/e7.png';
-import e8 from '../assets/images/e8.png';
-import ea2 from '../assets/images/ea2.png';
-
 export const ORDERS_QUANTITY_SCHEMA = [
   {
     Monday: [
@@ -235,4 +226,13 @@ export const weekdays = [
   'Sunday',
 ];
 
-export const resultBlockIcons = [e1, e3, e4, e5, e6, e7, e8, e3];
+export const resultBlockIcons = [
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561d478d9ca606af18e9_e1.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561dbac0ff45ea89a2ff_e3.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561ce0ec58a8c02990da_e4.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561d81773f7d935864bb_e5.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561d5a99642dd072bb29_e6.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561d81773f5b0d5864ba_e7.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561dc50e558de324dfb6_e8.png',
+  'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561dbac0ff45ea89a2ff_e3.png',
+];

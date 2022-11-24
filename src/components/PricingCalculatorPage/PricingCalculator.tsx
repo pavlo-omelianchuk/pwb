@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { ThemeProvider } from '@mui/material/styles';
+import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import { GMV_RATE, marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
@@ -28,42 +29,91 @@ export const PricingCalculator = () => {
       isChecked: true,
       totalMeals: 76,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
     {
       day: 'Tuesday',
       isChecked: true,
       totalMeals: 80,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
     {
       day: 'Wednesday',
       isChecked: true,
       totalMeals: 78,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
     {
       day: 'Thursday',
       isChecked: true,
       totalMeals: 89,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
     {
       day: 'Friday',
       isChecked: true,
       totalMeals: 102,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
     {
       day: 'Saturday',
       isChecked: true,
       totalMeals: 107,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
     {
       day: 'Sunday',
       isChecked: true,
       totalMeals: 117,
       workingHours: [...Array(24).keys()],
+      timeTable: ['12AM', '12AM', null, null],
+      timeValues: [
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T12:00:00.000Z'),
+        dayjs('2022-01-01T00:00:00.000Z'),
+      ],
     },
   ]);
 
@@ -92,7 +142,7 @@ export const PricingCalculator = () => {
     return `${value}`;
   }
 
-  const updateFormValues = (day: string, isChecked: boolean, workingHours: number[]) => {
+  const updateFormValues = (day: string, isChecked: boolean, workingHours: number[], timeTable: string[], timeValues: Dayjs | null) => {
     setFormValues(
       [...formValues].map(object => {
         if (object.day === day) {
@@ -110,7 +160,6 @@ export const PricingCalculator = () => {
       }),
     );
   };
-  console.log(formValues);
 
   return (
     <SectionWrapper>
@@ -166,8 +215,8 @@ export const PricingCalculator = () => {
               <DayCardComponent
                 key={day}
                 day={day}
+                formValues={formValues}
                 updateFormValues={updateFormValues}
-                checkedSameEveryDay={checkedSameEveryDay}
                 setCheckedSameEveryDay={setCheckedSameEveryDay}
                 isPlaying={isPlaying}
                 setIsPlaying={setIsPlaying}
