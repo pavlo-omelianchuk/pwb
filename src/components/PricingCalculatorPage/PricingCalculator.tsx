@@ -256,12 +256,12 @@ export const PricingCalculator = () => {
                           return day.timeValues;
                         }
                       })[0];
-                      console.log('mondaysTimeValues', mondaysTimeValues);
+                     
 
                       !checkedSameEveryDay &&
                         formValues.forEach(object => {
                           if (object.day !== 'Monday') {
-                            console.log(object.day, mondaysDayCheck, mondaysWorkingHours);
+                           
                             setFormValues(
                               [...formValues].map(object => {
                                 if (object.day !== 'Monday') {

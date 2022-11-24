@@ -134,7 +134,7 @@ export const DayCardComponent = ({
     //in case of switching  a day toggle ON, assign all day as working day
     //in case of switching a day toggle OFF, assign 0 working hours
     setCheckedSameEveryDay(false);
-    console.log('toggle', currentDayFormValues);
+    
     let workingHours = [...Array(24).keys()];
 
     !!currentDayFormValues?.isChecked && setIsEdit(false);

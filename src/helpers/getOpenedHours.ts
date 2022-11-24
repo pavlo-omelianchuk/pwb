@@ -20,8 +20,7 @@ export const countOpenedHours = ({
   const closingHour = !!morningEndTime && ampmTimeToNumbers(morningEndTime);
   const openingHour2 = !!eveningStartTime && ampmTimeToNumbers(eveningStartTime);
   const closingHour2 = !!eveningEndTime && ampmTimeToNumbers(eveningEndTime);
-console.log(openingHour);
-console.log(closingHour);
+
   const arrayOfOpenedHours = () => {
     const workingHours = allHours
       .map(hour => {
@@ -31,7 +30,6 @@ console.log(closingHour);
           hour >= openingHour &&
           hour < closingHour
         ) {
-          console.log('first');
           return hour;
         }
         if (
@@ -40,7 +38,6 @@ console.log(closingHour);
           hour >= openingHour2 &&
           hour < closingHour2
         ) {
-          console.log('sec');
           return hour;
         }
         if (
@@ -48,7 +45,6 @@ console.log(closingHour);
           closingHour2 !== undefined &&
           closingHour2 < openingHour2
         ) {
-          console.log('thr');
           if (hour >= openingHour2 && hour <= 23) {
             return hour;
           }
@@ -57,7 +53,6 @@ console.log(closingHour);
           }
         }
         if (openingHour !== undefined && closingHour !== undefined && closingHour < openingHour) {
-          console.log('four');
           if (hour >= openingHour && hour <= 23) {
             return hour;
           }
