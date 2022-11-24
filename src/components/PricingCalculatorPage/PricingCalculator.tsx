@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { ThemeProvider } from '@mui/material/styles';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import { GMV_RATE, marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
@@ -27,92 +27,99 @@ export const PricingCalculator = () => {
     {
       day: 'Monday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 76,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
     {
       day: 'Tuesday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 80,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
     {
       day: 'Wednesday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 78,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
     {
       day: 'Thursday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 89,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
     {
       day: 'Friday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 102,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
     {
       day: 'Saturday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 107,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
     {
       day: 'Sunday',
       isChecked: true,
+      isCheckedMulti: false,
       totalMeals: 117,
       workingHours: [...Array(24).keys()],
-      timeTable: ['12AM', '12AM', null, null],
+
       timeValues: [
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
-        dayjs('2022-01-01T12:00:00.000Z'),
-        dayjs('2022-01-01T00:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T09:00:00.000Z'),
+        dayjs('2022-01-01T13:00:00.000Z'),
+        dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
   ]);
@@ -141,14 +148,8 @@ export const PricingCalculator = () => {
     setSitesValue(value);
     return `${value}`;
   }
-
-  const updateFormValues = (
-    day: string,
-    isChecked: boolean,
-    workingHours: number[],
-    timeTable?: string[],
-    timeValues?: Dayjs | null,
-  ) => {
+  console.log(formValues);
+  const updateFormValues = (day: string, isChecked: boolean, workingHours: number[]) => {
     setFormValues(
       [...formValues].map(object => {
         if (object.day === day) {
@@ -159,8 +160,8 @@ export const PricingCalculator = () => {
           return {
             ...object,
             totalMeals: orders,
-            isChecked: isChecked,
-            workingHours: workingHours,
+            isChecked,
+            workingHours,
           };
         } else return object;
       }),
@@ -222,8 +223,10 @@ export const PricingCalculator = () => {
                 key={day}
                 day={day}
                 formValues={formValues}
+                setFormValues={setFormValues}
                 updateFormValues={updateFormValues}
                 setCheckedSameEveryDay={setCheckedSameEveryDay}
+                checkedSameEveryDay={checkedSameEveryDay}
                 isPlaying={isPlaying}
                 setIsPlaying={setIsPlaying}
               />
@@ -237,7 +240,6 @@ export const PricingCalculator = () => {
                   <Checkbox
                     checked={checkedSameEveryDay}
                     onChange={() => {
-                      setCheckedSameEveryDay(prev => !prev);
                       const mondaysDayCheck: boolean = [...formValues].map(day => {
                         if (day.day === 'Monday') {
                           return day.isChecked;
@@ -249,29 +251,37 @@ export const PricingCalculator = () => {
                           return day.workingHours;
                         }
                       })[0];
-                      console.log(mondaysWorkingHours);
-
-                      formValues.forEach(object => {
-                        if (object.day !== 'Monday') {
-                          console.log(object.day, mondaysDayCheck, mondaysWorkingHours);
-                          setFormValues(
-                            [...formValues].map(object => {
-                              if (object.day !== 'Monday') {
-                                const orders = countTotalMeals({
-                                  day: object.day,
-                                  workingHours: mondaysWorkingHours,
-                                });
-                                return {
-                                  ...object,
-                                  totalMeals: orders,
-                                  isChecked: mondaysDayCheck,
-                                  workingHours: mondaysWorkingHours,
-                                };
-                              } else return object;
-                            }),
-                          );
+                      const mondaysTimeValues = [...formValues].map(day => {
+                        if (day.day === 'Monday') {
+                          return day.timeValues;
                         }
-                      });
+                      })[0];
+                      console.log('mondaysTimeValues', mondaysTimeValues);
+
+                      !checkedSameEveryDay &&
+                        formValues.forEach(object => {
+                          if (object.day !== 'Monday') {
+                            console.log(object.day, mondaysDayCheck, mondaysWorkingHours);
+                            setFormValues(
+                              [...formValues].map(object => {
+                                if (object.day !== 'Monday') {
+                                  const orders = countTotalMeals({
+                                    day: object.day,
+                                    workingHours: mondaysWorkingHours,
+                                  });
+                                  return {
+                                    ...object,
+                                    totalMeals: orders,
+                                    isChecked: mondaysDayCheck,
+                                    workingHours: mondaysWorkingHours,
+                                    timeValues: mondaysTimeValues,
+                                  };
+                                } else return object;
+                              }),
+                            );
+                          }
+                        });
+                      setCheckedSameEveryDay(prev => !prev);
                     }}
                     inputProps={{ 'aria-label': 'controlled' }}
                     checkedIcon={<CheckedIcon sameEveryDay />}

@@ -2,23 +2,23 @@ export const ampmTimeToNumbers = (time: string) => {
   switch (time) {
     case '12AM':
       return 0;
-    case '01AM':
+    case '1AM':
       return 1;
-    case '02AM':
+    case '2AM':
       return 2;
-    case '03AM':
+    case '3AM':
       return 3;
-    case '04AM':
+    case '4AM':
       return 4;
-    case '05AM':
+    case '5AM':
       return 5;
-    case '06AM':
+    case '6AM':
       return 6;
-    case '07AM':
+    case '7AM':
       return 7;
-    case '08AM':
+    case '8AM':
       return 8;
-    case '09AM':
+    case '9AM':
       return 9;
     case '10AM':
       return 10;
@@ -26,23 +26,23 @@ export const ampmTimeToNumbers = (time: string) => {
       return 11;
     case '12PM':
       return 12;
-    case '01PM':
+    case '1PM':
       return 13;
-    case '02PM':
+    case '2PM':
       return 14;
-    case '03PM':
+    case '3PM':
       return 15;
-    case '04PM':
+    case '4PM':
       return 16;
-    case '05PM':
+    case '5PM':
       return 17;
-    case '06PM':
+    case '6PM':
       return 18;
-    case '07PM':
+    case '7PM':
       return 19;
-    case '08PM':
+    case '8PM':
       return 20;
-    case '09PM':
+    case '9PM':
       return 21;
     case '10PM':
       return 22;

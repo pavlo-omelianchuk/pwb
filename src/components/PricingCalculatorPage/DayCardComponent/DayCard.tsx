@@ -3,8 +3,8 @@ import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import { ThemeProvider } from '@mui/material/styles';
-import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import React, { useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import { countOpenedHours } from 'src/helpers/getOpenedHours';
 import { playSound } from 'src/helpers/playSound';
@@ -24,16 +24,12 @@ import {
 type DayCardComponentProps = {
   isPlaying: boolean;
   setIsPlaying: any;
+  checkedSameEveryDay: boolean;
   setCheckedSameEveryDay: any;
   day: string;
   formValues: any[];
-  updateFormValues: (
-    day: string,
-    isChecked: boolean,
-    workingHours: number[],
-    timeTable?: string[],
-    timeValues?: Dayjs | null,
-  ) => void;
+  setFormValues: any;
+  updateFormValues: (day: string, isChecked: boolean, workingHours: number[]) => void;
 };
 
 export const DayCardComponent = ({
@@ -42,40 +38,11 @@ export const DayCardComponent = ({
   isPlaying,
   setIsPlaying,
   formValues,
+  setFormValues,
+  checkedSameEveryDay,
   setCheckedSameEveryDay,
 }: DayCardComponentProps) => {
-  const [checkedMulti, setCheckedMulti] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [morningStartTime, setMorningStartTime] = useState<null | string>(null);
-  const [morningEndTime, setMorningEndTime] = useState<null | string>(null);
-  const [eveningStartTime, setEveningStartTime] = useState<null | string>(null);
-  const [eveningEndTime, setEveningEndTime] = useState<null | string>(null);
-  const [showDetailedTime, setShowDetailedTime] = useState(false);
-  const [morningStartValue, setMorningStartValue] = useState<Dayjs | null>(
-    dayjs('2022-01-01T00:00:00.000Z'),
-  );
-  const [morningEndValue, setMorningEndValue] = useState<Dayjs | null>(
-    dayjs('2022-01-01T00:00:00.000Z'),
-  );
-  const [eveningStartValue, setEveningStartValue] = useState<Dayjs | null>(
-    dayjs('2022-01-01T12:00:00.000Z'),
-  );
-  const [eveningEndValue, setEveningEndValue] = useState<Dayjs | null>(
-    dayjs('2022-01-01T00:00:00.000Z'),
-  );
-
-  useEffect(() => {
-    if (morningStartTime === '12AM' && morningEndTime === '12AM') {
-      setShowDetailedTime(false);
-    }
-    // if (day === 'Monday') {
-    //   localStorage.setItem('mst', JSON.stringify(morningStartTime));
-    //   localStorage.setItem('met', JSON.stringify(morningEndTime));
-    //   // localStorage.setItem('mst', JSON.stringify(morningStartTime));
-    //   // localStorage.setItem('mst', JSON.stringify(morningStartTime));
-    // }
-    // return () => {};
-  }, [morningStartTime, morningEndTime]);
 
   const currentDayFormValues = formValues
     .map(dayState => {
@@ -84,26 +51,47 @@ export const DayCardComponent = ({
       }
     })
     .filter(Boolean)?.[0];
+  const mondaysFormValues = formValues
+    .map(dayState => {
+      if (dayState.day === 'Monday') {
+        return dayState;
+      }
+    })
+    .filter(Boolean)?.[0];
 
-  console.log('inside', day, currentDayFormValues);
+  const currentDayTimeTableFormatted = [
+    currentDayFormValues?.timeValues?.[0]?.format('hA'),
+    currentDayFormValues?.timeValues?.[1]?.format('hA'),
+    currentDayFormValues?.timeValues?.[2]?.format('hA'),
+    currentDayFormValues?.timeValues?.[3]?.format('hA'),
+  ];
+  const currentDayTimeTableRow = [
+    currentDayFormValues?.timeValues?.[0],
+    currentDayFormValues?.timeValues?.[1],
+    currentDayFormValues?.timeValues?.[2],
+    currentDayFormValues?.timeValues?.[3],
+  ];
+  const mondaysTimeTable = [
+    mondaysFormValues?.timeValues?.[0]?.format('hA'),
+    mondaysFormValues?.timeValues?.[1]?.format('hA'),
+    mondaysFormValues?.timeValues?.[2]?.format('hA'),
+    mondaysFormValues?.timeValues?.[3]?.format('hA'),
+  ];
 
-  const stateTimeValues = {
-    morningStartValue,
-    morningEndValue,
-    eveningStartValue,
-    eveningEndValue,
-    setMorningStartValue,
-    setMorningEndValue,
-    setEveningStartValue,
-    setEveningEndValue,
-  };
+  const displayMorningStartTime: string = !!checkedSameEveryDay
+    ? mondaysTimeTable[0]
+    : currentDayTimeTableFormatted[0];
+  const displayMorningEndTime: string = !!checkedSameEveryDay
+    ? mondaysTimeTable[1]
+    : currentDayTimeTableFormatted[1];
+  const displayEveningStartTime: string = !!checkedSameEveryDay
+    ? mondaysTimeTable[2]
+    : currentDayTimeTableFormatted[2];
+  const displayEveningEndTime: string = !!checkedSameEveryDay
+    ? mondaysTimeTable[3]
+    : currentDayTimeTableFormatted[3];
 
-  const setStateData = {
-    setMorningStartTime,
-    setMorningEndTime,
-    setEveningStartTime,
-    setEveningEndTime,
-  };
+  const isAllDay = currentDayFormValues?.workingHours?.length === 24;
 
   const handleSubmit = () => {
     // if available 24 hours per day, - display "All day" message
@@ -111,18 +99,20 @@ export const DayCardComponent = ({
 
     setCheckedSameEveryDay(false);
 
-    if (morningStartTime === '12AM' && morningEndTime === '12AM') {
+    if (currentDayTimeTableFormatted[0] === '12AM' && currentDayTimeTableFormatted[1] === '12AM') {
       let workingHours = [...Array(24).keys()];
 
       updateFormValues(day, true, workingHours);
-      setShowDetailedTime(false);
     } else {
-      setShowDetailedTime(true);
       const workingHours = countOpenedHours({
-        morningStartTime,
-        morningEndTime,
-        eveningStartTime,
-        eveningEndTime,
+        morningStartTime: currentDayTimeTableFormatted[0],
+        morningEndTime: currentDayTimeTableFormatted[1],
+        eveningStartTime: !!currentDayFormValues?.isCheckedMulti
+          ? currentDayTimeTableFormatted[2]
+          : null,
+        eveningEndTime: !!currentDayFormValues?.isCheckedMulti
+          ? currentDayTimeTableFormatted[3]
+          : null,
       });
 
       updateFormValues(day, true, workingHours);
@@ -144,16 +134,29 @@ export const DayCardComponent = ({
     //in case of switching  a day toggle ON, assign all day as working day
     //in case of switching a day toggle OFF, assign 0 working hours
     setCheckedSameEveryDay(false);
-
+    console.log('toggle', currentDayFormValues);
     let workingHours = [...Array(24).keys()];
 
     !!currentDayFormValues?.isChecked && setIsEdit(false);
     !!currentDayFormValues?.isChecked
       ? updateFormValues(day, !currentDayFormValues?.isChecked, [])
       : updateFormValues(day, !currentDayFormValues?.isChecked, workingHours);
-
-    setMorningStartValue(dayjs('2022-01-01T00:00:00.000Z'));
-    setMorningEndValue(dayjs('2022-01-01T00:00:00.000Z'));
+    !currentDayFormValues &&
+      setFormValues(
+        [...formValues].map(object => {
+          if (object.day === currentDayFormValues.day) {
+            return {
+              ...object,
+              timeValues: [
+                dayjs('2022-01-01T09:00:00.000Z'),
+                dayjs('2022-01-01T00:00:00.000Z'),
+                dayjs('2022-01-01T13:00:00.000Z'),
+                dayjs('2022-01-01T23:00:00.000Z'),
+              ],
+            };
+          } else return object;
+        }),
+      );
   };
 
   const handleEditHours = () => {
@@ -164,7 +167,7 @@ export const DayCardComponent = ({
     <DayCard
       isEdit={isEdit}
       checkedDay={currentDayFormValues?.isChecked}
-      checkedMulti={checkedMulti}
+      checkedMulti={currentDayFormValues.isCheckedMulti}
     >
       <ToggleDayBlock>
         <h5>{day}</h5>
@@ -196,16 +199,16 @@ export const DayCardComponent = ({
       </ToggleDayBlock>
       <DisplayHoursBlockWrapper checkedDay={currentDayFormValues?.isChecked}>
         <DisplayHoursBlock isEdit={isEdit}>
-          {!!showDetailedTime ? (
+          {!isAllDay ? (
             <>
               <span>
-                From {morningStartTime} to {morningEndTime}
+                From {displayMorningStartTime} to {displayMorningEndTime}
               </span>{' '}
-              {!!checkedMulti && (
+              {!!currentDayFormValues.isCheckedMulti && (
                 <>
                   <span>•</span>
                   <span>
-                    From {eveningStartTime} to {eveningEndTime}
+                    From {displayEveningStartTime} to {displayEveningEndTime}
                   </span>
                 </>
               )}
@@ -234,13 +237,24 @@ export const DayCardComponent = ({
         </DisplayHoursBlock>
         <ThemeProvider theme={theme}>
           {!!isEdit && (
-            <StyledCheckbox checkedMulti={checkedMulti}>
+            <StyledCheckbox checkedMulti={currentDayFormValues.isCheckedMulti}>
               <FormControlLabel
                 value="Multiple openings"
                 control={
                   <Checkbox
-                    checked={checkedMulti}
-                    onChange={() => setCheckedMulti(prev => !prev)}
+                    checked={currentDayFormValues.isCheckedMulti}
+                    onChange={() =>
+                      setFormValues(
+                        [...formValues].map(object => {
+                          if (object.day === currentDayFormValues.day) {
+                            return {
+                              ...object,
+                              isCheckedMulti: !object.isCheckedMulti,
+                            };
+                          } else return object;
+                        }),
+                      )
+                    }
                     inputProps={{ 'aria-label': 'controlled' }}
                     checkedIcon={<CheckedIcon />}
                   />
@@ -257,10 +271,12 @@ export const DayCardComponent = ({
       <EditHoursComponent
         handleSubmit={handleSubmit}
         isEdit={isEdit}
-        isMulti={checkedMulti}
+        isMulti={currentDayFormValues.isCheckedMulti}
         checkedDay={currentDayFormValues?.isChecked}
-        setStateData={setStateData}
-        stateTimeValues={stateTimeValues}
+        formValues={formValues}
+        setFormValues={setFormValues}
+        currentDayFormValues={currentDayFormValues}
+        currentDayTimeTableRow={currentDayTimeTableRow}
       />
     </DayCard>
   );

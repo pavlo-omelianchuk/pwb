@@ -12,35 +12,27 @@ type EditHoursComponentProps = {
   isEdit: boolean;
   handleSubmit: () => void;
   isMulti: boolean;
-  setStateData: any;
-  stateTimeValues: any;
-  checkedDay: any;
+  checkedDay: boolean;
+  formValues: any[];
+  setFormValues: any;
+  currentDayTimeTableRow: any;
+  currentDayFormValues: any;
 };
 
 export const EditHoursComponent = ({
   isEdit,
   handleSubmit,
   isMulti,
-  setStateData,
   checkedDay,
-  stateTimeValues,
+  formValues,
+  setFormValues,
+  currentDayTimeTableRow,
+  currentDayFormValues,
 }: EditHoursComponentProps) => {
   // the time values we use in set timer
 
-  //setState values, to redefine time result
-  const { setMorningStartTime, setMorningEndTime, setEveningStartTime, setEveningEndTime } =
-    setStateData;
-
-  const {
-    morningStartValue,
-    morningEndValue,
-    eveningStartValue,
-    eveningEndValue,
-    setMorningStartValue,
-    setMorningEndValue,
-    setEveningStartValue,
-    setEveningEndValue,
-  } = stateTimeValues;
+  const [morningStartValue, morningEndValue, eveningStartValue, eveningEndValue] =
+    currentDayTimeTableRow;
 
   return (
     <ThemeProvider theme={theme}>
@@ -53,8 +45,23 @@ export const EditHoursComponent = ({
               eveningStartValue &&
               morningEndValue &&
               eveningStartValue < morningEndValue &&
-              setEveningStartValue(morningEndValue);
+              // setEveningStartValue(morningEndValue);
 
+              setFormValues(
+                [...formValues].map(object => {
+                  if (object.day === currentDayFormValues.day) {
+                    return {
+                      ...object,
+                      timeValues: [
+                        morningStartValue,
+                        morningEndValue,
+                        morningEndValue,
+                        eveningEndValue,
+                      ],
+                    };
+                  } else return object;
+                }),
+              );
             handleSubmit();
           }}
         >
@@ -70,10 +77,24 @@ export const EditHoursComponent = ({
                     value={morningStartValue}
                     minutesStep={60}
                     onChange={newValue => {
-                      setMorningStartValue(newValue);
+                      // setMorningStartValue(newValue);
+                      setFormValues(
+                        [...formValues].map(object => {
+                          if (object.day === currentDayFormValues.day) {
+                            return {
+                              ...object,
+                              timeValues: [
+                                newValue,
+                                morningEndValue,
+                                eveningStartValue,
+                                eveningEndValue,
+                              ],
+                            };
+                          } else return object;
+                        }),
+                      );
                     }}
                     renderInput={params => {
-                      setMorningStartTime(params?.inputProps?.value?.replace(':00 ', ''));
                       return <TextField id="morning-date-from" {...params} />;
                     }}
                   />
@@ -85,10 +106,24 @@ export const EditHoursComponent = ({
                     value={morningEndValue}
                     minutesStep={60}
                     onChange={newValue => {
-                      setMorningEndValue(newValue);
+                      // setMorningEndValue(newValue);
+                      setFormValues(
+                        [...formValues].map(object => {
+                          if (object.day === currentDayFormValues.day) {
+                            return {
+                              ...object,
+                              timeValues: [
+                                morningStartValue,
+                                newValue,
+                                eveningStartValue,
+                                eveningEndValue,
+                              ],
+                            };
+                          } else return object;
+                        }),
+                      );
                     }}
                     renderInput={params => {
-                      setMorningEndTime(params?.inputProps?.value?.replace(':00 ', ''));
                       return <TextField id="morning-date-to" {...params} />;
                     }}
                   />
@@ -107,10 +142,24 @@ export const EditHoursComponent = ({
                       value={eveningStartValue}
                       minutesStep={60}
                       onChange={newValue => {
-                        setEveningStartValue(newValue);
+                        // setEveningStartValue(newValue);
+                        setFormValues(
+                          [...formValues].map(object => {
+                            if (object.day === currentDayFormValues.day) {
+                              return {
+                                ...object,
+                                timeValues: [
+                                  morningStartValue,
+                                  morningEndValue,
+                                  newValue,
+                                  eveningEndValue,
+                                ],
+                              };
+                            } else return object;
+                          }),
+                        );
                       }}
                       renderInput={params => {
-                        setEveningStartTime(params?.inputProps?.value?.replace(':00 ', ''));
                         return <TextField id="evening-date-from" {...params} />;
                       }}
                     />
@@ -122,10 +171,24 @@ export const EditHoursComponent = ({
                       value={eveningEndValue}
                       minutesStep={60}
                       onChange={newValue => {
-                        setEveningEndValue(newValue);
+                        // setEveningEndValue(newValue);
+                        setFormValues(
+                          [...formValues].map(object => {
+                            if (object.day === currentDayFormValues.day) {
+                              return {
+                                ...object,
+                                timeValues: [
+                                  morningStartValue,
+                                  morningEndValue,
+                                  eveningStartValue,
+                                  newValue,
+                                ],
+                              };
+                            } else return object;
+                          }),
+                        );
                       }}
                       renderInput={params => {
-                        setEveningEndTime(params?.inputProps?.value?.replace(':00 ', ''));
                         return <TextField id="evening-date-to" {...params} />;
                       }}
                     />

@@ -20,7 +20,8 @@ export const countOpenedHours = ({
   const closingHour = !!morningEndTime && ampmTimeToNumbers(morningEndTime);
   const openingHour2 = !!eveningStartTime && ampmTimeToNumbers(eveningStartTime);
   const closingHour2 = !!eveningEndTime && ampmTimeToNumbers(eveningEndTime);
-
+console.log(openingHour);
+console.log(closingHour);
   const arrayOfOpenedHours = () => {
     const workingHours = allHours
       .map(hour => {
