@@ -7,6 +7,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
+import { countOpenedHours } from 'src/helpers/getOpenedHours';
 import { playSound } from 'src/helpers/playSound';
 import { EditHoursComponent } from '../EditHoursComponent/EditHoursComponent';
 import {
@@ -27,7 +28,11 @@ type DayCardComponentProps = {
   checkedSameEveryDay: boolean;
   setCheckedSameEveryDay: any;
   day: string;
-  updateFormValues: (day: string, isFromCheck: boolean, totalMeals?: number) => void;
+  updateFormValues: (
+    day: string,
+    isFromCheck: boolean,
+    workingHours: number[],
+  ) => void;
 };
 
 export const DayCardComponent = ({
@@ -97,29 +102,20 @@ export const DayCardComponent = ({
     setCheckedSameEveryDay(false);
 
     if (morningStartTime === '12AM' && morningEndTime === '12AM') {
-      const allDay = true;
-      const orders = countTotalMeals({
-        day,
-        allDay,
-        morningStartTime,
-        morningEndTime,
-        eveningStartTime,
-        eveningEndTime,
-      });
+      let workingHours = [...Array(24).keys()];
 
-      updateFormValues(day, true, orders);
+      updateFormValues(day, true,  workingHours);
       setShowDetailedTime(false);
     } else {
       setShowDetailedTime(true);
-      const orders = countTotalMeals({
-        day,
+      const workingHours = countOpenedHours({
         morningStartTime,
         morningEndTime,
         eveningStartTime,
         eveningEndTime,
       });
 
-      updateFormValues(day, true, orders);
+      updateFormValues(day, true, workingHours);
     }
 
     setIsEdit(false);
@@ -132,26 +128,23 @@ export const DayCardComponent = ({
         setIsPlaying(false);
       }, 1000);
     }
-
-    // alert(JSON.stringify(values, null, 2));
   };
 
-  const handleSwitch = () => {
-    const allDay = true;
-    const orders = countTotalMeals({
-      day,
-      allDay,
-      morningStartTime,
-      morningEndTime,
-      eveningStartTime,
-      eveningEndTime,
-    });
-    console.log(orders);
+  const handleDayToggle = () => {
+    //in case of switching  a day toggle ON, assign all day as working day
+    //in case of switching a day toggle OFF, assign 0 working hours
+    setCheckedSameEveryDay(false);
+
+    let workingHours = [...Array(24).keys()];
     setCheckedDay(prev => !prev);
     !!checkedDay && setIsEdit(false);
     !!checkedDay
-      ? updateFormValues(day, !checkedDay, 0)
-      : updateFormValues(day, !checkedDay, orders);
+      ? updateFormValues(day, !checkedDay, [])
+      : updateFormValues(
+          day,
+          !checkedDay,
+          workingHours,
+        );
 
     setMorningStartValue(dayjs('2022-01-01T00:00:00.000Z'));
     setMorningEndValue(dayjs('2022-01-01T00:00:00.000Z'));
@@ -174,7 +167,7 @@ export const DayCardComponent = ({
               <OpenDaySwitch
                 sx={{ m: 1 }}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleSwitch();
+                  handleDayToggle();
                   if (!isPlaying) {
                     setIsPlaying(true);
                     playSound();
