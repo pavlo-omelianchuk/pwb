@@ -31,8 +31,8 @@ type DayCardComponentProps = {
     day: string,
     isChecked: boolean,
     workingHours: number[],
-    timeTable: string[],
-    timeValues: Dayjs | null,
+    timeTable?: string[],
+    timeValues?: Dayjs | null,
   ) => void;
 };
 

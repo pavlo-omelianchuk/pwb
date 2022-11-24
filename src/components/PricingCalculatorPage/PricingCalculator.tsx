@@ -142,7 +142,13 @@ export const PricingCalculator = () => {
     return `${value}`;
   }
 
-  const updateFormValues = (day: string, isChecked: boolean, workingHours: number[], timeTable: string[], timeValues: Dayjs | null) => {
+  const updateFormValues = (
+    day: string,
+    isChecked: boolean,
+    workingHours: number[],
+    timeTable?: string[],
+    timeValues?: Dayjs | null,
+  ) => {
     setFormValues(
       [...formValues].map(object => {
         if (object.day === day) {
