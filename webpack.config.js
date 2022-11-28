@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pathsPlugin = require('tsconfig-paths-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -37,7 +36,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '.', './dist'),
     // `filename` provides a template for naming your bundles (remember to use `[name]`)
-    filename: 'pricing@v11.bundle.js',
+    filename: 'pricing@v11.04.bundle.js',
     // `chunkFilename` provides a template for naming code-split bundles (optional)
     // chunkFilename: '[name].bundle.js',
     clean: true,
@@ -46,16 +45,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '.', './dist/index.html'),
     }),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, '.', './dist'),
-    //       // globOptions: {
-    //       //   ignore: ['**/index.html'],
-    //       // },
-    //     },
-    //   ],
-    // }),
   ],
   devServer: {
     static: {

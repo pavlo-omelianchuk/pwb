@@ -10,10 +10,12 @@
             |--createTheme.ts
             |--global.ts
     |--components
-        |--
+        |--PricingCalculatorPage
     |--helpers
-        |--
 
+##Setup
+
+- run npm i
 
 
 

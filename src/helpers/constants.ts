@@ -185,7 +185,8 @@ export const ORDERS_QUANTITY_SCHEMA = [
   },
 ];
 
-export const GMV_RATE = 18.5;
+export const AOV_MULTIPLIER_UK = 18.5;
+export const AOV_MULTIPLIER_FR = 20.5;
 
 export const WEEKS_IN_MONTH = 4.33;
 

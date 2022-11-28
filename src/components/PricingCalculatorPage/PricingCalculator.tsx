@@ -5,8 +5,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
-import { GMV_RATE, marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
+import { marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
+import { getContent } from 'src/helpers/languageContent';
 import { playSound } from 'src/helpers/playSound';
 import { DayCardComponent } from './DayCardComponent/DayCard';
 import { CheckedIcon, StyledCheckbox } from './DayCardComponent/DayCard.styles';
@@ -124,12 +125,53 @@ export const PricingCalculator = () => {
     },
   ]);
 
-  const [gmv, setGmv] = useState(51988);
+  const [gmv, setGMV] = useState(51988);
   const [totalOrders, setTotalOrders] = useState(2810);
 
   const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [documentLang, setDocumentLang] = useState('en');
 
+  // const documentLanguage = document.documentElement.lang || 'en';
+  setTimeout(() => {
+    const documentLanguage = document.documentElement.lang || 'en';
+    setDocumentLang(documentLanguage);
+    console.log('documentLanguage is', documentLanguage);
+  }, 500);
+  useEffect(() => {
+    const langSwitcher = document.querySelectorAll('li.wg-li a');
+
+    langSwitcher.forEach(lang => {
+      lang.addEventListener(
+        'click',
+        () => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        },
+        false,
+      );
+    });
+
+    return () => {
+      langSwitcher.forEach(lang => {
+        lang.removeEventListener(
+          'click',
+          () => {
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          },
+          false,
+        );
+      });
+    };
+  }, []);
+
+  const { result, orders, perMonth, howManySites, whatDaysOpen, sameEveryDay, aov, symbol } =
+    getContent(documentLang);
+
+  console.log('current AOV_MULTIPLIER is', aov);
   useEffect(() => {
     const totalMeals =
       Array.from(
@@ -140,9 +182,9 @@ export const PricingCalculator = () => {
       WEEKS_IN_MONTH *
       sitesValue;
     setTotalOrders(totalMeals);
-    setGmv(totalMeals * GMV_RATE);
+    setGMV(totalMeals * aov);
     return () => {};
-  }, [formValues, sitesValue]);
+  }, [formValues, sitesValue, documentLang]);
 
   function valuetext(value: number) {
     setSitesValue(value);
@@ -170,25 +212,29 @@ export const PricingCalculator = () => {
 
   return (
     <SectionWrapper>
-      <Heading5 className="heading-5">Results</Heading5>
+      <Heading5 className="heading-5">{result}</Heading5>
       <div className="container-small">
         {/* Section that renders results. Orders qty and GMV in pounds      */}
         <ResultWrapper>
-          <div className="heading-4">{Math.round(totalOrders)?.toLocaleString()} Orders</div>
-          <div className="heading-2 text-orange">£{Math.round(gmv)?.toLocaleString()} GMV</div>
-          <div>per month</div>
+          <div className="heading-4">
+            {Math.round(totalOrders)?.toLocaleString()} {orders}
+          </div>
+          <div className="heading-2 text-orange">
+            {symbol} {Math.round(gmv)?.toLocaleString()} GMV
+          </div>
+          <div>{perMonth}</div>
           {resultBlockIcons.map((image: any, key: number) => {
             return <img src={image} id={`icon-${key.toLocaleString()}`} width="50px" />;
           })}
         </ResultWrapper>
       </div>
       {/* Button is invisible here, to hold a space. Will be rendered in Webflow  */}
-      <PrimaryButton className="btn-primary w-button">Book a call</PrimaryButton>
+      <PrimaryButton className="btn-primary w-button"></PrimaryButton>
       {/* Section that renders sites qty, that user have, based on slider position from 1 to 5+
       where 5+ means 5
       */}
       <SliderWrapper>
-        <Heading5 className="heading-5">How many sites have you got?</Heading5>
+        <Heading5 className="heading-5">{howManySites}</Heading5>
         <Box sx={{ width: '100%', margin: 'auto' }}>
           <SitesSlider
             aria-label="sites"
@@ -216,12 +262,14 @@ export const PricingCalculator = () => {
       {/* Section that renders days list Enabled by default  with full day opening hours */}
       <DaysWrapper>
         <>
-          <Heading5 className="heading-5">What days do you open?</Heading5>
-          {weekdays.map(day => {
+          <Heading5 className="heading-5">{whatDaysOpen}</Heading5>
+          {weekdays.map((day, index) => {
             return (
               <DayCardComponent
-                key={day}
+                key={index}
+                index={index}
                 day={day}
+                documentLang={documentLang}
                 formValues={formValues}
                 setFormValues={setFormValues}
                 updateFormValues={updateFormValues}
@@ -256,12 +304,10 @@ export const PricingCalculator = () => {
                           return day.timeValues;
                         }
                       })[0];
-                     
 
                       !checkedSameEveryDay &&
                         formValues.forEach(object => {
                           if (object.day !== 'Monday') {
-                           
                             setFormValues(
                               [...formValues].map(object => {
                                 if (object.day !== 'Monday') {
@@ -287,7 +333,7 @@ export const PricingCalculator = () => {
                     checkedIcon={<CheckedIcon sameEveryDay />}
                   />
                 }
-                label="Same every day"
+                label={sameEveryDay}
                 labelPlacement="end"
               />
             </StyledCheckbox>

@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import { countOpenedHours } from 'src/helpers/getOpenedHours';
+import { getContent } from 'src/helpers/languageContent';
 import { playSound } from 'src/helpers/playSound';
 import { EditHoursComponent } from '../EditHoursComponent/EditHoursComponent';
 import {
@@ -27,6 +28,8 @@ type DayCardComponentProps = {
   checkedSameEveryDay: boolean;
   setCheckedSameEveryDay: any;
   day: string;
+  index: number;
+  documentLang: string;
   formValues: any[];
   setFormValues: any;
   updateFormValues: (day: string, isChecked: boolean, workingHours: number[]) => void;
@@ -41,8 +44,26 @@ export const DayCardComponent = ({
   setFormValues,
   checkedSameEveryDay,
   setCheckedSameEveryDay,
+  documentLang,
+  index,
 }: DayCardComponentProps) => {
   const [isEdit, setIsEdit] = useState(false);
+
+  const {
+    open,
+    closed,
+    multipleOpenings,
+    from,
+    to,
+    allDay,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+  } = getContent(documentLang);
 
   const currentDayFormValues = formValues
     .map(dayState => {
@@ -58,6 +79,27 @@ export const DayCardComponent = ({
       }
     })
     .filter(Boolean)?.[0];
+
+  const displayDay = (index: number) => {
+    switch (index) {
+      case 0:
+        return monday;
+      case 1:
+        return tuesday;
+      case 2:
+        return wednesday;
+      case 3:
+        return thursday;
+      case 4:
+        return friday;
+      case 5:
+        return saturday;
+      case 6:
+        return sunday;
+      default:
+        break;
+    }
+  };
 
   const currentDayTimeTableFormatted = [
     currentDayFormValues?.timeValues?.[0]?.format('hA'),
@@ -134,7 +176,7 @@ export const DayCardComponent = ({
     //in case of switching  a day toggle ON, assign all day as working day
     //in case of switching a day toggle OFF, assign 0 working hours
     setCheckedSameEveryDay(false);
-    
+
     let workingHours = [...Array(24).keys()];
 
     !!currentDayFormValues?.isChecked && setIsEdit(false);
@@ -170,7 +212,7 @@ export const DayCardComponent = ({
       checkedMulti={currentDayFormValues.isCheckedMulti}
     >
       <ToggleDayBlock>
-        <h5>{day}</h5>
+        <h5>{displayDay(index)}</h5>
         <FormGroup>
           <StyledFormControlLabel
             sx={{
@@ -193,7 +235,7 @@ export const DayCardComponent = ({
                 checked={currentDayFormValues?.isChecked}
               />
             }
-            label={currentDayFormValues?.isChecked ? 'Open' : 'Closed'}
+            label={currentDayFormValues?.isChecked ? open : closed}
           />
         </FormGroup>
       </ToggleDayBlock>
@@ -202,19 +244,20 @@ export const DayCardComponent = ({
           {!isAllDay ? (
             <>
               <span>
-                From {displayMorningStartTime} to {displayMorningEndTime}
+                {from} {displayMorningStartTime} {to} {displayMorningEndTime}
               </span>{' '}
               {!!currentDayFormValues.isCheckedMulti && (
                 <>
                   <span>•</span>
                   <span>
-                    From {displayEveningStartTime} to {displayEveningEndTime}
+                    {from} {displayEveningStartTime}
+                    {to} {displayEveningEndTime}
                   </span>
                 </>
               )}
             </>
           ) : (
-            <div style={{ position: 'relative', top: '2px' }}>All day</div>
+            <div style={{ position: 'relative', top: '2px' }}>{allDay}</div>
           )}
 
           <EditIconHolder onClick={handleEditHours}>
@@ -259,7 +302,7 @@ export const DayCardComponent = ({
                     checkedIcon={<CheckedIcon />}
                   />
                 }
-                label="Multiple openings"
+                label={multipleOpenings}
                 labelPlacement="end"
               />
             </StyledCheckbox>
@@ -271,6 +314,7 @@ export const DayCardComponent = ({
       <EditHoursComponent
         handleSubmit={handleSubmit}
         isEdit={isEdit}
+        documentLang={documentLang}
         isMulti={currentDayFormValues.isCheckedMulti}
         checkedDay={currentDayFormValues?.isChecked}
         formValues={formValues}
