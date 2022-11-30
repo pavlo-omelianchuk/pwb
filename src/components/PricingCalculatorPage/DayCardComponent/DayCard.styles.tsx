@@ -129,7 +129,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  /* align-items: center; */
   gap: 15px;
   transition: display ease-in-out 500ms;
   display: ${props => (props.isEdit ? 'none ' : 'flex')};
@@ -137,6 +137,8 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
   #display-hours {
     display: flex;
     justify-content: space-between;
+    /* align-items: center; */
+    padding: 0 0 6px;
     width: ${props => (props.isCheckedMulti ? '240px' : '120px')};
   }
 
@@ -179,6 +181,8 @@ export const StyledCheckbox = styled.div<DayCardProps>`
   }
 `;
 export const EditIconHolder = styled.div`
+  position: relative;
+  top: 2px;
   cursor: pointer;
   svg {
     &:hover path {

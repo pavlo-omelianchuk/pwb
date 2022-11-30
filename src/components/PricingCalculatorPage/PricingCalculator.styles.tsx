@@ -146,11 +146,7 @@ export const SliderWrapper = styled.div`
 `;
 
 export const SitesSlider = styled(Slider)`
-  /* & .MuiSlider-root {
-display: flex;
-flex-direction: column;
-justify-content: center;
-  } */
+
   & .MuiSlider-track {
     color: #f16d4d;
     border-radius: 15px 0 0 15px;
@@ -204,8 +200,5 @@ export const DaysWrapper = styled.div`
   justify-content: flex-start;
   margin: 80px auto 0;
   max-width: 792px;
-  /* max-width: 85vw; */
-  @media (width < 900px) {
-    /* max-width: 100vw; */
-  }
+
 `;

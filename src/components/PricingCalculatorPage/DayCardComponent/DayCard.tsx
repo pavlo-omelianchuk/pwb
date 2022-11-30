@@ -251,7 +251,7 @@ export const DayCardComponent = ({
               )}
             </div>
           ) : (
-            <div style={{ position: 'relative', top: '2px' }}>{allDay}</div>
+            <div style={{ position: 'relative', top: '2px',  fontSize: '14px' }}>{allDay}</div>
           )}
 
           <EditIconHolder onClick={handleEditHours}>

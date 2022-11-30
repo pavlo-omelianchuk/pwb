@@ -4,10 +4,6 @@ import styled from 'styled-components';
 import { DayCardProps } from '../DayCardComponent/DayCard.styles';
 
 export const EditHours = styled.div<DayCardProps>`
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center; */
   width: 100%;
   height: fit-content;
   transition: all ease-in-out 1s;
@@ -23,17 +19,10 @@ export const EditHours = styled.div<DayCardProps>`
   opacity: ${props => (props.isEdit ? '1' : '0')};
   @media (width < 900px) {
     margin-top: 15px;
-    /* width: 80%; */
-    /* margin: auto; */
   }
-  @media (width < 650px) {
-    /* border: 1px solid #000; */
-    /* width: 100%; */
-    /* margin: 14px 0 0; */
-  }
+
 `;
 
-//
 export const StyledForm = styled(Form)<DayCardProps>`
   display: flex;
   flex-wrap: nowrap;
