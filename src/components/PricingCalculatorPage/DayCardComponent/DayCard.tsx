@@ -47,7 +47,7 @@ export const DayCardComponent = ({
   documentLang,
   index,
 }: DayCardComponentProps) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
 
   const {
     open,
@@ -209,7 +209,7 @@ export const DayCardComponent = ({
     <DayCard
       isEdit={isEdit}
       checkedDay={currentDayFormValues?.isChecked}
-      checkedMulti={currentDayFormValues.isCheckedMulti}
+      isCheckedMulti={currentDayFormValues.isCheckedMulti}
     >
       <ToggleDayBlock>
         <h5>{displayDay(index)}</h5>
@@ -280,7 +280,7 @@ export const DayCardComponent = ({
         </DisplayHoursBlock>
         <ThemeProvider theme={theme}>
           {!!isEdit && (
-            <StyledCheckbox checkedMulti={currentDayFormValues.isCheckedMulti}>
+            <StyledCheckbox isCheckedMulti={currentDayFormValues.isCheckedMulti}>
               <FormControlLabel
                 value="Multiple openings"
                 control={

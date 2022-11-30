@@ -28,7 +28,7 @@ export const PricingCalculator = () => {
     {
       day: 'Monday',
       isChecked: true,
-      isCheckedMulti: false,
+      isCheckedMulti: true,
       totalMeals: 76,
       workingHours: [...Array(24).keys()],
 
@@ -138,35 +138,6 @@ export const PricingCalculator = () => {
     setDocumentLang(documentLanguage);
     console.log('documentLanguage is', documentLanguage);
   }, 500);
-  useEffect(() => {
-    const langSwitcher = document.querySelectorAll('li.wg-li a');
-
-    langSwitcher.forEach(lang => {
-      lang.addEventListener(
-        'click',
-        () => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        },
-        false,
-      );
-    });
-
-    return () => {
-      langSwitcher.forEach(lang => {
-        lang.removeEventListener(
-          'click',
-          () => {
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
-          },
-          false,
-        );
-      });
-    };
-  }, []);
 
   const { result, orders, perMonth, howManySites, whatDaysOpen, sameEveryDay, aov, symbol } =
     getContent(documentLang);

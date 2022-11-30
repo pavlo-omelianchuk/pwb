@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { DayCardProps } from '../DayCardComponent/DayCard.styles';
 
 export const EditHours = styled.div<DayCardProps>`
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   width: 100%;
   height: fit-content;
   transition: all ease-in-out 1s;
@@ -22,19 +22,21 @@ export const EditHours = styled.div<DayCardProps>`
 
   opacity: ${props => (props.isEdit ? '1' : '0')};
   @media (width < 900px) {
-    width: 80%;
-    margin: auto;
+    margin-top: 15px;
+    /* width: 80%; */
+    /* margin: auto; */
   }
   @media (width < 650px) {
-    width: 100%;
-    margin: 14px 0 0;
+    /* border: 1px solid #000; */
+    /* width: 100%; */
+    /* margin: 14px 0 0; */
   }
 `;
 
 //
 export const StyledForm = styled(Form)<DayCardProps>`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   width: 100%;
   height: fit-content;
@@ -44,19 +46,24 @@ export const StyledForm = styled(Form)<DayCardProps>`
   margin-block-end: 0;
 
   @media (width < 900px) {
-    justify-content: ${props => (props.checkedMulti ? 'flex-end' : 'space-between')};
+    justify-content: ${props => (props.isCheckedMulti ? 'flex-end' : 'space-between')};
     gap: 15px;
-    /* width: 80%;
-    justify-content: center;
-    height: fit-content; */
+    flex-wrap: wrap;
+    width: 90%;
+    height: fit-content;
+    margin: 0 auto;
   }
-  @media (width < 430px) {
-    justify-content: flex-end;
+  @media (width < 721px) {
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  @media (width < 650px) {
+    width: 100%;
   }
 `;
 export const StyledStuck = styled(Stack)<DayCardProps>`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-direction: row !important;
 
   #morning-hours-block,
@@ -86,12 +93,12 @@ export const StyledStuck = styled(Stack)<DayCardProps>`
 
   .MuiInputBase-root {
     height: 32px;
-    width: 120px;
+    width: 100px;
     border-radius: 12px;
     color: #767676;
     background-color: #ebebeb;
     input {
-      padding: 3px 0 0 26px;
+      padding: 3px 0 0 23px;
       font-family: inherit;
       font-size: 14px;
       font-weight: 500;
@@ -99,7 +106,8 @@ export const StyledStuck = styled(Stack)<DayCardProps>`
   }
   @media (width < 900px) {
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    width: ${props => (props.isCheckedMulti ? '100%' : 'fit-content')};
     height: fit-content;
     gap: 15px;
 
@@ -107,7 +115,16 @@ export const StyledStuck = styled(Stack)<DayCardProps>`
       padding-left: 0;
     }
   }
-  @media (width < 430px) {
+  @media (width < 721px) {
+    flex-wrap: wrap;
+    width: ${props => (props.isCheckedMulti ? '50%' : 'fit-content')};
+    #morning-hours-block,
+    #evening-hours-block {
+      /* width: 100%; */
+      /* justify-content: space-between; */
+    }
+  }
+  @media (width < 494px) {
     width: 100%;
     #morning-hours-block,
     #evening-hours-block {
@@ -121,15 +138,16 @@ export const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
+  width: 128px;
   height: 32px;
+  color: white;
   background-color: #f16d4d;
   border-radius: 9px;
 
-  svg {
+  /* svg {
     width: 18px;
-  }
-  @media (width < 900px) {
-    justify-content: flex-start;
+  } */
+  @media (width < 494px) {
+    width: 100%;
   }
 `;

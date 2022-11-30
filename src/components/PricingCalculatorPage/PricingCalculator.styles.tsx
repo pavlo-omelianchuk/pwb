@@ -16,10 +16,6 @@ export const PrimaryButton = styled.a`
 `;
 
 export const ResultWrapper = styled.div`
-  /* background-image: url('https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/6372c2a9d60cdc4b91d1ab70_Mask%20Group%20793%402x.png');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: 100%; */
   position: relative;
   background: #ffffff;
   display: flex;
@@ -207,10 +203,9 @@ export const DaysWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   margin: 80px auto 0;
-  width: 792px;
-  max-width: 85vw;
-  padding: 16px;
+  max-width: 792px;
+  /* max-width: 85vw; */
   @media (width < 900px) {
-    max-width: 100vw;
+    /* max-width: 100vw; */
   }
 `;

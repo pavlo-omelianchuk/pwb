@@ -10,7 +10,7 @@ export type DayCardProps = {
   isEdit?: boolean;
   checkedDay?: boolean;
   flexEnd?: boolean;
-  checkedMulti?: boolean;
+  isCheckedMulti?: boolean;
 };
 
 export const CheckedIcon = styled.div<CheckedIconProps>`
@@ -38,11 +38,11 @@ export const DayCard = styled.div<DayCardProps>`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
+  width: 792px;
   flex-wrap: wrap;
   transition: height 1s;
   height: ${props => (props.isEdit ? '172px ' : '88px')};
-  padding: 27px 33px;
+  padding: 27px 32px;
   background-color: white;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -55,15 +55,16 @@ export const DayCard = styled.div<DayCardProps>`
     transition: all ease-in-out 500ms;
   }
   @media (width < 900px) {
+    max-width: 90vw;
     transition: all ease-in-out 500ms;
     padding: 19px 15px;
     flex-wrap: nowrap;
 
     min-height: ${props => (props.checkedDay ? '123px ' : '0')};
     height: ${props =>
-      props.checkedMulti && props.isEdit
-        ? '292px'
-        : !props.checkedMulti && props.isEdit
+      props.isCheckedMulti && props.isEdit
+        ? '252px'
+        : !props.isCheckedMulti && props.isEdit
         ? '206px'
         : ' '};
     justify-content: flex-start;
@@ -73,11 +74,12 @@ export const DayCard = styled.div<DayCardProps>`
       margin: 10px 0;
     }
   }
-  @media (width < 430px) {
+  @media (width < 494px) {
+    /* width: fit-content; */
     height: ${props =>
-      props.checkedMulti && props.isEdit
+      props.isCheckedMulti && props.isEdit
         ? '292px'
-        : !props.checkedMulti && props.isEdit
+        : !props.isCheckedMulti && props.isEdit
         ? '250px'
         : ' '};
   }
@@ -93,7 +95,7 @@ export const ToggleDayBlock = styled.div`
     font-size: inherit;
   }
   @media (width < 900px) {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     justify-content: space-between;
   }
@@ -109,7 +111,7 @@ export const DisplayHoursBlockWrapper = styled.div<DayCardProps>`
   top: ${props => (props.checkedDay ? '0 ' : '-5px')};
 
   @media (width < 900px) {
-    width: 80%;
+    width: 90%;
     display: flex;
     margin: 0 auto;
 

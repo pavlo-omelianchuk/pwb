@@ -1,4 +1,3 @@
-import CheckIcon from '@mui/icons-material/Check';
 import { ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -82,9 +81,9 @@ export const EditHoursComponent = ({
             handleSubmit();
           }}
         >
-          <StyledForm checkedMulti={isMulti}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <StyledStuck>
+          <StyledForm isCheckedMulti={isMulti}>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'en'}>
+              <StyledStuck isCheckedMulti={isMulti}>
                 <div id="morning-hours-block">
                   <label htmlFor="morning-date-from">{from}</label>
                   <MobileTimePicker
@@ -94,7 +93,6 @@ export const EditHoursComponent = ({
                     value={morningStartValue}
                     minutesStep={60}
                     onChange={newValue => {
-                      // setMorningStartValue(newValue);
                       setFormValues(
                         [...formValues].map(object => {
                           if (object.day === currentDayFormValues.day) {
@@ -123,7 +121,6 @@ export const EditHoursComponent = ({
                     value={morningEndValue}
                     minutesStep={60}
                     onChange={newValue => {
-                      // setMorningEndValue(newValue);
                       setFormValues(
                         [...formValues].map(object => {
                           if (object.day === currentDayFormValues.day) {
@@ -159,7 +156,6 @@ export const EditHoursComponent = ({
                       value={eveningStartValue}
                       minutesStep={60}
                       onChange={newValue => {
-                        // setEveningStartValue(newValue);
                         setFormValues(
                           [...formValues].map(object => {
                             if (object.day === currentDayFormValues.day) {
@@ -188,7 +184,6 @@ export const EditHoursComponent = ({
                       value={eveningEndValue}
                       minutesStep={60}
                       onChange={newValue => {
-                        // setEveningEndValue(newValue);
                         setFormValues(
                           [...formValues].map(object => {
                             if (object.day === currentDayFormValues.day) {
@@ -214,7 +209,7 @@ export const EditHoursComponent = ({
               </StyledStuck>
             </LocalizationProvider>
             <StyledButton disabled={!checkedDay} type="submit">
-              <CheckIcon sx={{ color: 'white' }} />
+              Apply
             </StyledButton>
           </StyledForm>
         </Formik>
