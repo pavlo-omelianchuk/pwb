@@ -141,7 +141,6 @@ export const DayCardComponent = ({
     //TODO: check if evening start time is not bigger than morning end time
     //TODO: check if the end time is not bigger than start time
 
-
     const workingHours = countOpenedHours({
       morningStartTime: currentDayTimeTableFormatted[0],
       morningEndTime: currentDayTimeTableFormatted[1],
@@ -235,9 +234,9 @@ export const DayCardComponent = ({
         </FormGroup>
       </ToggleDayBlock>
       <DisplayHoursBlockWrapper checkedDay={currentDayFormValues?.isChecked}>
-        <DisplayHoursBlock isEdit={isEdit}>
+        <DisplayHoursBlock isEdit={isEdit} isCheckedMulti={currentDayFormValues.isCheckedMulti}>
           {!isAllDay ? (
-            <div id='display-hours'>
+            <div id="display-hours">
               <span>
                 {from} {displayMorningStartTime} {to} {displayMorningEndTime}
               </span>{' '}

@@ -137,7 +137,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
   #display-hours {
     display: flex;
     justify-content: space-between;
-    width: 240px;
+    width: ${props => (props.isCheckedMulti ? '240px' : '120px')};
   }
 
   span {
