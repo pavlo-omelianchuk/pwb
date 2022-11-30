@@ -47,7 +47,7 @@ export const DayCardComponent = ({
   documentLang,
   index,
 }: DayCardComponentProps) => {
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
   const {
     open,

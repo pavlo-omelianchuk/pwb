@@ -28,7 +28,7 @@ export const PricingCalculator = () => {
     {
       day: 'Monday',
       isChecked: true,
-      isCheckedMulti: true,
+      isCheckedMulti: false,
       totalMeals: 76,
       workingHours: [...Array(24).keys()],
 

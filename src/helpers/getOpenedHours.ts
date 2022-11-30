@@ -53,21 +53,20 @@ export const countOpenedHours = ({
           }
         }
         if (openingHour !== undefined && closingHour !== undefined && closingHour < openingHour) {
-          if (hour >= openingHour && hour <= 23) {
-            return hour;
-          }
           if (hour < closingHour) {
             return hour;
           }
+          if (hour >= openingHour && hour <= 23) {
+            return hour;
+          }
         }
-      })
-      .filter(Boolean);
+      }).filter((element: number | undefined) => element !== undefined);
 
     return workingHours;
   };
   workingHours = arrayOfOpenedHours();
 
-  console.log('workingHours', workingHours);
+  console.log('workingHours =>', workingHours);
 
   return workingHours;
 };
