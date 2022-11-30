@@ -36,7 +36,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '.', './dist'),
     // `filename` provides a template for naming your bundles (remember to use `[name]`)
-    filename: 'pricing@v11.04.bundle.js',
+    filename: 'pricing@v12.bundle.js',
     // `chunkFilename` provides a template for naming code-split bundles (optional)
     // chunkFilename: '[name].bundle.js',
     clean: true,

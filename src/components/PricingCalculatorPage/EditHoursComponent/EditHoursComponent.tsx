@@ -56,28 +56,6 @@ export const EditHoursComponent = ({
         <Formik
           initialValues={{}} // initial values coming from declared state variables in useState hook
           onSubmit={() => {
-            // check if evening start value is not less that morning end value
-            !!isMulti &&
-              eveningStartValue &&
-              morningEndValue &&
-              eveningStartValue < morningEndValue &&
-              // setEveningStartValue(morningEndValue);
-
-              setFormValues(
-                [...formValues].map(object => {
-                  if (object.day === currentDayFormValues.day) {
-                    return {
-                      ...object,
-                      timeValues: [
-                        morningStartValue,
-                        morningEndValue,
-                        morningEndValue,
-                        eveningEndValue,
-                      ],
-                    };
-                  } else return object;
-                }),
-              );
             handleSubmit();
           }}
         >
@@ -146,7 +124,7 @@ export const EditHoursComponent = ({
                 {!!isMulti && (
                   <div id="evening-hours-block">
                     {' '}
-                    <label id="sp-from" htmlFor="morning-date-from">
+                    <label id="sp-from" htmlFor="evening-date-from">
                       {from}
                     </label>
                     <MobileTimePicker
@@ -156,6 +134,9 @@ export const EditHoursComponent = ({
                       value={eveningStartValue}
                       minutesStep={60}
                       onChange={newValue => {
+                        if (newValue < morningEndValue) {
+                          newValue = morningEndValue;
+                        }
                         setFormValues(
                           [...formValues].map(object => {
                             if (object.day === currentDayFormValues.day) {

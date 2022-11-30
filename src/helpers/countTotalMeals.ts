@@ -5,14 +5,10 @@ type countTotalOrdersProps = {
   workingHours: number[];
 };
 
-export const countTotalMeals = ({
-  day,
-  workingHours,
-}: countTotalOrdersProps) => {
-
+export const countTotalMeals = ({ day, workingHours }: countTotalOrdersProps) => {
   const totalOrders = (schema: any) => {
     const orders: any[] = schema?.map((hour: any) => {
-      if (workingHours.includes(+Object.keys(hour)[0])) {
+      if (workingHours?.includes(+Object.keys(hour)[0])) {
         return Object.values(hour);
       }
     });
@@ -20,6 +16,5 @@ export const countTotalMeals = ({
   };
 
   let orders = totalOrders(getDaySchema(day));
-
   return orders.flat().reduce((a, b) => a + b, 0);
 };

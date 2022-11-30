@@ -136,29 +136,24 @@ export const DayCardComponent = ({
   const isAllDay = currentDayFormValues?.workingHours?.length === 24;
 
   const handleSubmit = () => {
-    // if available 24 hours per day, - display "All day" message
-    // else, - display detailed Hours
-
     setCheckedSameEveryDay(false);
 
-    if (currentDayTimeTableFormatted[0] === '12AM' && currentDayTimeTableFormatted[1] === '12AM') {
-      let workingHours = [...Array(24).keys()];
+    //TODO: check if evening start time is not bigger than morning end time
+    //TODO: check if the end time is not bigger than start time
 
-      updateFormValues(day, true, workingHours);
-    } else {
-      const workingHours = countOpenedHours({
-        morningStartTime: currentDayTimeTableFormatted[0],
-        morningEndTime: currentDayTimeTableFormatted[1],
-        eveningStartTime: !!currentDayFormValues?.isCheckedMulti
-          ? currentDayTimeTableFormatted[2]
-          : null,
-        eveningEndTime: !!currentDayFormValues?.isCheckedMulti
-          ? currentDayTimeTableFormatted[3]
-          : null,
-      });
 
-      updateFormValues(day, true, workingHours);
-    }
+    const workingHours = countOpenedHours({
+      morningStartTime: currentDayTimeTableFormatted[0],
+      morningEndTime: currentDayTimeTableFormatted[1],
+      eveningStartTime: !!currentDayFormValues?.isCheckedMulti
+        ? currentDayTimeTableFormatted[2]
+        : null,
+      eveningEndTime: !!currentDayFormValues?.isCheckedMulti
+        ? currentDayTimeTableFormatted[3]
+        : null,
+    });
+
+    updateFormValues(day, true, workingHours);
 
     setIsEdit(false);
 
@@ -242,7 +237,7 @@ export const DayCardComponent = ({
       <DisplayHoursBlockWrapper checkedDay={currentDayFormValues?.isChecked}>
         <DisplayHoursBlock isEdit={isEdit}>
           {!isAllDay ? (
-            <>
+            <div id='display-hours'>
               <span>
                 {from} {displayMorningStartTime} {to} {displayMorningEndTime}
               </span>{' '}
@@ -255,7 +250,7 @@ export const DayCardComponent = ({
                   </span>
                 </>
               )}
-            </>
+            </div>
           ) : (
             <div style={{ position: 'relative', top: '2px' }}>{allDay}</div>
           )}

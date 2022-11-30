@@ -16,12 +16,31 @@ export const countOpenedHours = ({
   let allHours = [...Array(24).keys()];
   let workingHours: any;
 
-  const openingHour = !!morningStartTime && ampmTimeToNumbers(morningStartTime);
-  const closingHour = !!morningEndTime && ampmTimeToNumbers(morningEndTime);
-  const openingHour2 = !!eveningStartTime && ampmTimeToNumbers(eveningStartTime);
-  const closingHour2 = !!eveningEndTime && ampmTimeToNumbers(eveningEndTime);
+  if (!morningStartTime || !morningEndTime) {
+    return;
+  }
+
+  let openingHour = !!morningStartTime && ampmTimeToNumbers(morningStartTime);
+  let closingHour = !!morningEndTime && ampmTimeToNumbers(morningEndTime);
+  let openingHour2 = !!eveningStartTime && ampmTimeToNumbers(eveningStartTime);
+  let closingHour2 = !!eveningEndTime && ampmTimeToNumbers(eveningEndTime);
+
+  if (!!openingHour && !!closingHour && closingHour < openingHour) {
+    closingHour = openingHour;
+    alert('The result was`t changed, please verify submitted time and try again');
+    return;
+  }
+  if (!!openingHour2 && !!closingHour2 && closingHour2 < openingHour2) {
+    closingHour2 = openingHour2;
+    alert('The result was`t changed, please verify submitted time and try again');
+    return;
+  }
 
   const arrayOfOpenedHours = () => {
+    if (openingHour === closingHour) {
+      return allHours;
+    }
+
     const workingHours = allHours
       .map(hour => {
         if (
@@ -60,7 +79,8 @@ export const countOpenedHours = ({
             return hour;
           }
         }
-      }).filter((element: number | undefined) => element !== undefined);
+      })
+      .filter((element: number | undefined) => element !== undefined);
 
     return workingHours;
   };

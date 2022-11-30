@@ -134,6 +134,12 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
   transition: display ease-in-out 500ms;
   display: ${props => (props.isEdit ? 'none ' : 'flex')};
 
+  #display-hours {
+    display: flex;
+    justify-content: space-between;
+    width: 240px;
+  }
+
   span {
     position: relative;
     top: 4px;

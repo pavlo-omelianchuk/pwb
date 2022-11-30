@@ -23,8 +23,7 @@ import {
 } from './PricingCalculator.styles';
 
 export const PricingCalculator = () => {
-  const [sitesValue, setSitesValue] = useState(1);
-  const [formValues, setFormValues] = useState<any[]>([
+  const initialValues = [
     {
       day: 'Monday',
       isChecked: true,
@@ -123,7 +122,9 @@ export const PricingCalculator = () => {
         dayjs('2022-01-01T23:00:00.000Z'),
       ],
     },
-  ]);
+  ];
+  const [sitesValue, setSitesValue] = useState(1);
+  const [formValues, setFormValues] = useState<any[]>(initialValues);
 
   const [gmv, setGMV] = useState(51988);
   const [totalOrders, setTotalOrders] = useState(2810);
@@ -162,23 +163,46 @@ export const PricingCalculator = () => {
     return `${value}`;
   }
   console.log(formValues);
+
+  console.log('initialFormValues= ', initialValues);
+
   const updateFormValues = (day: string, isChecked: boolean, workingHours: number[]) => {
-    setFormValues(
-      [...formValues].map(object => {
-        if (object.day === day) {
-          const orders = countTotalMeals({
-            day,
-            workingHours,
-          });
-          return {
-            ...object,
-            totalMeals: orders,
-            isChecked,
-            workingHours,
-          };
-        } else return object;
-      }),
-    );
+    if (!workingHours) {
+      setFormValues(
+        [...formValues].map(object => {
+          if (object.day === day) {
+            const initialTimeValues = initialValues.map(object => {
+              if (object.day === day) {
+                return object.timeValues;
+              }
+            })[0];
+
+            return {
+              ...object,
+              timeValues: initialTimeValues,
+            };
+          } else return object;
+        }),
+      );
+    } else {
+      setFormValues(
+        [...formValues].map(object => {
+          if (object.day === day) {
+            const orders = countTotalMeals({
+              day,
+              workingHours,
+            });
+            console.log('orders', orders);
+            return {
+              ...object,
+              totalMeals: orders,
+              isChecked,
+              workingHours,
+            };
+          } else return object;
+        }),
+      );
+    }
   };
 
   return (

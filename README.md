@@ -1,6 +1,8 @@
 # Calculating Page for PWB website on WebFlow
 
-#directory structure
+# directory structure
+
+```
 |--dist
     |--index.html
     |--[bundle-name].bundle.js
@@ -12,11 +14,7 @@
     |--components
         |--PricingCalculatorPage
     |--helpers
-
-##Setup
+```
+## Setup
 
 - run npm i
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/pavlo-omelianchuk/pwb/dist/pricing@v07.bundle.js"></script>
