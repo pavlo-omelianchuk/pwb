@@ -299,6 +299,11 @@ export const PricingCalculator = () => {
                           return day.timeValues;
                         }
                       })[0];
+                      const mondaysIsCheckedMulti = [...formValues].map(day => {
+                        if (day.day === 'Monday') {
+                          return day.isCheckedMulti;
+                        }
+                      })[0];
 
                       !checkedSameEveryDay &&
                         formValues.forEach(object => {
@@ -314,6 +319,7 @@ export const PricingCalculator = () => {
                                     ...object,
                                     totalMeals: orders,
                                     isChecked: mondaysDayCheck,
+                                    isCheckedMulti: mondaysIsCheckedMulti,
                                     workingHours: mondaysWorkingHours,
                                     timeValues: mondaysTimeValues,
                                   };
