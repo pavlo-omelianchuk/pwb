@@ -136,6 +136,7 @@ export const EditHoursComponent = ({
                       onChange={newValue => {
                         if (newValue < morningEndValue) {
                           newValue = morningEndValue;
+                          alert('Time was corrected');
                         }
                         setFormValues(
                           [...formValues].map(object => {

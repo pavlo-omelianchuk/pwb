@@ -138,8 +138,6 @@ export const DayCardComponent = ({
   const handleSubmit = () => {
     setCheckedSameEveryDay(false);
 
-    //TODO: check if evening start time is not bigger than morning end time
-
     const workingHours = countOpenedHours({
       morningStartTime: currentDayTimeTableFormatted[0],
       morningEndTime: currentDayTimeTableFormatted[1],

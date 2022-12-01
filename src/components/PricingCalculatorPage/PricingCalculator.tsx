@@ -164,8 +164,6 @@ export const PricingCalculator = () => {
   }
   console.log(formValues);
 
-  console.log('initialFormValues= ', initialValues);
-
   const updateFormValues = (day: string, isChecked: boolean, workingHours: number[]) => {
     if (!workingHours) {
       setFormValues(
