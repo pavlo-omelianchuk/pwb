@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { ThemeProvider } from '@mui/material/styles';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import {
   MARKS,
@@ -14,7 +14,8 @@ import {
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { getContent } from 'src/helpers/languageContent';
 import { playSound } from 'src/helpers/playSound';
-import { CheckedIcon, DayCard, StyledCheckbox } from './DayCardComponent/DayCard.styles';
+import { DayCardComponent } from './DayCardComponent/DayCard';
+import { CheckedIcon, StyledCheckbox } from './DayCardComponent/DayCard.styles';
 import { PizzaThumbComponent } from './PizzaComponent/PizzaComponent';
 import {
   DaysWrapper,
@@ -25,12 +26,6 @@ import {
   SitesSlider,
   SliderWrapper,
 } from './PricingCalculator.styles';
-
-const DayCardComponent = lazy(() =>
-  import('./DayCardComponent/DayCard').then(({ DayCardComponent }) => ({
-    default: DayCardComponent,
-  })),
-);
 
 export const PricingCalculator = () => {
   const initialValues = [
@@ -262,27 +257,19 @@ export const PricingCalculator = () => {
           <Heading5 className="heading-5">{whatDaysOpen}</Heading5>
           {WEEKDAYS.map((day, index) => {
             return (
-              <Suspense
-                fallback={
-                  <DayCard>
-                    <h5>Loading ... </h5>
-                  </DayCard>
-                }
-              >
-                <DayCardComponent
-                  key={index}
-                  index={index}
-                  day={day}
-                  documentLang={documentLang}
-                  formValues={formValues}
-                  setFormValues={setFormValues}
-                  updateFormValues={updateFormValues}
-                  setCheckedSameEveryDay={setCheckedSameEveryDay}
-                  checkedSameEveryDay={checkedSameEveryDay}
-                  isPlaying={isPlaying}
-                  setIsPlaying={setIsPlaying}
-                />
-              </Suspense>
+              <DayCardComponent
+                key={index}
+                index={index}
+                day={day}
+                documentLang={documentLang}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                updateFormValues={updateFormValues}
+                setCheckedSameEveryDay={setCheckedSameEveryDay}
+                checkedSameEveryDay={checkedSameEveryDay}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+              />
             );
           })}
           <ThemeProvider theme={theme}>
