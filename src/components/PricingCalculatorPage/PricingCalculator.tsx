@@ -2,10 +2,15 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { ThemeProvider } from '@mui/material/styles';
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
-import { marks, resultBlockIcons, weekdays, WEEKS_IN_MONTH } from 'src/helpers/constants';
+import {
+  MARKS,
+  RESULT_BLOCK_ICONS,
+  TIME_VALUES,
+  WEEKDAYS,
+  WEEKS_IN_MONTH,
+} from 'src/helpers/constants';
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { getContent } from 'src/helpers/languageContent';
 import { playSound } from 'src/helpers/playSound';
@@ -25,101 +30,95 @@ import {
 export const PricingCalculator = () => {
   const initialValues = [
     {
-      day: 'Monday',
+      day: WEEKDAYS[0],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 76,
       workingHours: [...Array(24).keys()],
 
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
     {
-      day: 'Tuesday',
+      day: WEEKDAYS[1],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 80,
       workingHours: [...Array(24).keys()],
-
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
     {
-      day: 'Wednesday',
+      day: WEEKDAYS[2],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 78,
       workingHours: [...Array(24).keys()],
-
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
     {
-      day: 'Thursday',
+      day: WEEKDAYS[3],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 89,
       workingHours: [...Array(24).keys()],
-
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
     {
-      day: 'Friday',
+      day: WEEKDAYS[4],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 102,
       workingHours: [...Array(24).keys()],
-
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
     {
-      day: 'Saturday',
+      day: WEEKDAYS[5],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 107,
       workingHours: [...Array(24).keys()],
-
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
     {
-      day: 'Sunday',
+      day: WEEKDAYS[6],
       isChecked: true,
       isCheckedMulti: false,
       totalMeals: 117,
       workingHours: [...Array(24).keys()],
-
       timeValues: [
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T09:00:00.000Z'),
-        dayjs('2022-01-01T13:00:00.000Z'),
-        dayjs('2022-01-01T23:00:00.000Z'),
+        TIME_VALUES.morningStartTimeValue,
+        TIME_VALUES.morningEndTimeValue,
+        TIME_VALUES.eveningStartTimeValue,
+        TIME_VALUES.eveningEndTimeValue,
       ],
     },
   ];
@@ -216,7 +215,7 @@ export const PricingCalculator = () => {
             {symbol} {Math.round(gmv)?.toLocaleString()} GMV
           </div>
           <div>{perMonth}</div>
-          {resultBlockIcons.map((image: any, key: number) => {
+          {RESULT_BLOCK_ICONS.map((image: any, key: number) => {
             return <img src={image} id={`icon-${key.toLocaleString()}`} width="50px" />;
           })}
         </ResultWrapper>
@@ -237,7 +236,7 @@ export const PricingCalculator = () => {
             step={1}
             min={1}
             max={5}
-            marks={marks}
+            marks={MARKS}
             slots={{ thumb: PizzaThumbComponent }}
             onChange={() => {
               if (!isPlaying) {
@@ -256,7 +255,7 @@ export const PricingCalculator = () => {
       <DaysWrapper>
         <>
           <Heading5 className="heading-5">{whatDaysOpen}</Heading5>
-          {weekdays.map((day, index) => {
+          {WEEKDAYS.map((day, index) => {
             return (
               <DayCardComponent
                 key={index}

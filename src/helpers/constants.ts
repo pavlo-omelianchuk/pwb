@@ -1,3 +1,5 @@
+import dayjs from 'dayjs-ext';
+
 export const ORDERS_QUANTITY_SCHEMA = [
   {
     Monday: [
@@ -190,7 +192,7 @@ export const AOV_MULTIPLIER_FR = 20.5;
 
 export const WEEKS_IN_MONTH = 4.33;
 
-export const marks = [
+export const MARKS = [
   {
     value: 0,
     label: '0',
@@ -217,7 +219,7 @@ export const marks = [
   },
 ];
 
-export const weekdays = [
+export const WEEKDAYS = [
   'Monday',
   'Tuesday',
   'Wednesday',
@@ -227,7 +229,14 @@ export const weekdays = [
   'Sunday',
 ];
 
-export const resultBlockIcons = [
+export const TIME_VALUES = {
+  morningStartTimeValue: dayjs('2022-01-01T09:00:00.000Z', { timeZone: 'Europe/London' }),
+  morningEndTimeValue: dayjs('2022-01-01T09:00:00.000Z', { timeZone: 'Europe/London' }),
+  eveningStartTimeValue: dayjs('2022-01-01T13:00:00.000Z', { timeZone: 'Europe/London' }),
+  eveningEndTimeValue: dayjs('2022-01-01T03:00:00.000Z', { timeZone: 'Europe/London' }),
+};
+
+export const RESULT_BLOCK_ICONS = [
   'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561d478d9ca606af18e9_e1.png',
   'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561dbac0ff45ea89a2ff_e3.png',
   'https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/637f561ce0ec58a8c02990da_e4.png',

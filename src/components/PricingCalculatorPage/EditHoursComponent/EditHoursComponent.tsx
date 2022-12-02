@@ -36,19 +36,7 @@ export const EditHoursComponent = ({
   const [morningStartValue, morningEndValue, eveningStartValue, eveningEndValue] =
     currentDayTimeTableRow;
 
-  const {
-    result,
-    orders,
-    perMonth,
-    howManySites,
-    whatDaysOpen,
-    open,
-    closed,
-    multipleOpenings,
-    from,
-    to,
-    sameEveryDay,
-  } = getContent(documentLang);
+  const { from, to } = getContent(documentLang);
 
   return (
     <ThemeProvider theme={theme}>

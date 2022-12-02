@@ -3,9 +3,10 @@ import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import { ThemeProvider } from '@mui/material/styles';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs-ext';
 import React, { useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
+import { TIME_VALUES } from 'src/helpers/constants';
 import { countOpenedHours } from 'src/helpers/getOpenedHours';
 import { getContent } from 'src/helpers/languageContent';
 import { playSound } from 'src/helpers/playSound';
@@ -181,10 +182,10 @@ export const DayCardComponent = ({
             return {
               ...object,
               timeValues: [
-                dayjs('2022-01-01T09:00:00.000Z'),
-                dayjs('2022-01-01T00:00:00.000Z'),
-                dayjs('2022-01-01T13:00:00.000Z'),
-                dayjs('2022-01-01T23:00:00.000Z'),
+                TIME_VALUES.morningStartTimeValue,
+                TIME_VALUES.morningEndTimeValue,
+                TIME_VALUES.eveningStartTimeValue,
+                TIME_VALUES.eveningEndTimeValue,
               ],
             };
           } else return object;

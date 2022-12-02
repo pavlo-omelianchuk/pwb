@@ -66,6 +66,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "dayjs": "^1.11.6",
+    "dayjs-ext": "^2.2.0",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.19.0",
     "eslint-config-react-app": "^7.0.1",
