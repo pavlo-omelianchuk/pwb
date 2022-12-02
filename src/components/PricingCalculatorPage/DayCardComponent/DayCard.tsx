@@ -3,7 +3,6 @@ import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import { ThemeProvider } from '@mui/material/styles';
-import dayjs from 'dayjs-ext';
 import React, { useState } from 'react';
 import { theme } from 'src/assets/themeMUI/createTheme';
 import { TIME_VALUES } from 'src/helpers/constants';
@@ -249,7 +248,7 @@ export const DayCardComponent = ({
               )}
             </div>
           ) : (
-            <div style={{ position: 'relative', top: '2px',  fontSize: '14px' }}>{allDay}</div>
+            <div style={{ position: 'relative', top: '2px', fontSize: '14px' }}>{allDay}</div>
           )}
 
           <EditIconHolder onClick={handleEditHours}>

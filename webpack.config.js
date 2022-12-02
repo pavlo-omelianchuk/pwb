@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+const version = '13'
+
 module.exports = {
   entry: './src/index.tsx',
   module: {
@@ -36,9 +38,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '.', './dist'),
     // `filename` provides a template for naming your bundles (remember to use `[name]`)
-    filename: 'pricing@v12.02.bundle.js',
+    filename: `pricing@v${version}.uat.bundle.js`,
     // `chunkFilename` provides a template for naming code-split bundles (optional)
-    // chunkFilename: '[name].bundle.js',
+    chunkFilename: `chunk[name]@v${version}.bundle.js`,
     clean: true,
   },
   plugins: [
