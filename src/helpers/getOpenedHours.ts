@@ -25,17 +25,6 @@ export const countOpenedHours = ({
   let openingHour2 = !!eveningStartTime && ampmTimeToNumbers(eveningStartTime);
   let closingHour2 = !!eveningEndTime && ampmTimeToNumbers(eveningEndTime);
 
-  if (!!openingHour && !!closingHour && closingHour < openingHour) {
-    closingHour = openingHour;
-    alert('The result was`t changed, please verify submitted time and try again');
-    return;
-  }
-  if (!!openingHour2 && !!closingHour2 && closingHour2 < openingHour2) {
-    closingHour2 = openingHour2;
-    alert('The result was`t changed, please verify submitted time and try again');
-    return;
-  }
-
   const arrayOfOpenedHours = () => {
     if (openingHour === closingHour) {
       return allHours;

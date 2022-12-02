@@ -31,9 +31,9 @@ export const PricingCalculator = () => {
   const initialValues = [
     {
       day: WEEKDAYS[0],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 76,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
 
       timeValues: [
@@ -45,9 +45,9 @@ export const PricingCalculator = () => {
     },
     {
       day: WEEKDAYS[1],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 80,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -58,9 +58,9 @@ export const PricingCalculator = () => {
     },
     {
       day: WEEKDAYS[2],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 78,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -71,9 +71,9 @@ export const PricingCalculator = () => {
     },
     {
       day: WEEKDAYS[3],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 89,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -84,9 +84,9 @@ export const PricingCalculator = () => {
     },
     {
       day: WEEKDAYS[4],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 102,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -97,9 +97,9 @@ export const PricingCalculator = () => {
     },
     {
       day: WEEKDAYS[5],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 107,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -110,9 +110,9 @@ export const PricingCalculator = () => {
     },
     {
       day: WEEKDAYS[6],
-      isChecked: true,
+      isChecked: false,
       isCheckedMulti: false,
-      totalMeals: 117,
+      totalMeals: 0,
       workingHours: [...Array(24).keys()],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -125,14 +125,14 @@ export const PricingCalculator = () => {
   const [sitesValue, setSitesValue] = useState(1);
   const [formValues, setFormValues] = useState<any[]>(initialValues);
 
-  const [gmv, setGMV] = useState(51988);
-  const [totalOrders, setTotalOrders] = useState(2810);
+  const [gmv, setGMV] = useState(0);
+  const [totalOrders, setTotalOrders] = useState(0);
 
   const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [documentLang, setDocumentLang] = useState('en');
 
-  // const documentLanguage = document.documentElement.lang || 'en';
+  // Check and set language
   setTimeout(() => {
     const documentLanguage = document.documentElement.lang || 'en';
     setDocumentLang(documentLanguage);
