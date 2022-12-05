@@ -8,7 +8,6 @@ import { theme } from 'src/assets/themeMUI/createTheme';
 import { TIME_VALUES } from 'src/helpers/constants';
 import { countOpenedHours } from 'src/helpers/getOpenedHours';
 import { getContent } from 'src/helpers/languageContent';
-import { playSound } from 'src/helpers/playSound';
 import { EditHoursComponent } from '../EditHoursComponent/EditHoursComponent';
 import {
   CheckedIcon,
@@ -23,8 +22,6 @@ import {
 } from './DayCard.styles';
 
 type DayCardComponentProps = {
-  isPlaying: boolean;
-  setIsPlaying: any;
   checkedSameEveryDay: boolean;
   setCheckedSameEveryDay: any;
   day: string;
@@ -38,8 +35,6 @@ type DayCardComponentProps = {
 export const DayCardComponent = ({
   day,
   updateFormValues,
-  isPlaying,
-  setIsPlaying,
   formValues,
   setFormValues,
   checkedSameEveryDay,
@@ -152,15 +147,6 @@ export const DayCardComponent = ({
     updateFormValues(day, true, workingHours);
 
     setIsEdit(false);
-
-    if (!isPlaying) {
-      setIsPlaying(true);
-      playSound();
-    } else {
-      setTimeout(() => {
-        setIsPlaying(false);
-      }, 1000);
-    }
   };
 
   const handleDayToggle = () => {
@@ -214,14 +200,6 @@ export const DayCardComponent = ({
                 sx={{ m: 1 }}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   handleDayToggle();
-                  if (!isPlaying) {
-                    setIsPlaying(true);
-                    playSound();
-                  } else {
-                    setTimeout(() => {
-                      setIsPlaying(false);
-                    }, 1000);
-                  }
                 }}
                 checked={currentDayFormValues?.isChecked}
               />

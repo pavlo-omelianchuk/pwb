@@ -13,7 +13,6 @@ import {
 } from 'src/helpers/constants';
 import { countTotalMeals } from 'src/helpers/countTotalMeals';
 import { getContent } from 'src/helpers/languageContent';
-import { playSound } from 'src/helpers/playSound';
 import { DayCardComponent } from './DayCardComponent/DayCard';
 import { CheckedIcon, StyledCheckbox } from './DayCardComponent/DayCard.styles';
 import { PizzaThumbComponent } from './PizzaComponent/PizzaComponent';
@@ -129,7 +128,6 @@ export const PricingCalculator = () => {
   const [totalOrders, setTotalOrders] = useState(0);
 
   const [checkedSameEveryDay, setCheckedSameEveryDay] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [documentLang, setDocumentLang] = useState('en');
 
   // Check and set language
@@ -202,6 +200,30 @@ export const PricingCalculator = () => {
     }
   };
 
+  //Monday's Form Values
+    const mondaysDayCheck: boolean = [...formValues].map(day => {
+      if (day.day === 'Monday') {
+        return day.isChecked;
+      } else return;
+    })[0];
+
+    const mondaysWorkingHours: number[] = [...formValues].map(day => {
+      if (day.day === 'Monday') {
+        return day.workingHours;
+      }
+    })[0];
+    const mondaysTimeValues = [...formValues].map(day => {
+      if (day.day === 'Monday') {
+        return day.timeValues;
+      }
+    })[0];
+
+    const mondaysIsCheckedMulti: boolean = [...formValues].map(day => {
+      if (day.day === 'Monday') {
+        return day.isCheckedMulti;
+      }
+    })[0];
+
   return (
     <SectionWrapper>
       <Heading5 className="heading-5">{result}</Heading5>
@@ -238,16 +260,6 @@ export const PricingCalculator = () => {
             max={5}
             marks={MARKS}
             slots={{ thumb: PizzaThumbComponent }}
-            onChange={() => {
-              if (!isPlaying) {
-                setIsPlaying(true);
-                playSound();
-              } else {
-                setTimeout(() => {
-                  setIsPlaying(false);
-                }, 1000);
-              }
-            }}
           />
         </Box>
       </SliderWrapper>
@@ -267,8 +279,6 @@ export const PricingCalculator = () => {
                 updateFormValues={updateFormValues}
                 setCheckedSameEveryDay={setCheckedSameEveryDay}
                 checkedSameEveryDay={checkedSameEveryDay}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
               />
             );
           })}
@@ -280,28 +290,6 @@ export const PricingCalculator = () => {
                   <Checkbox
                     checked={checkedSameEveryDay}
                     onChange={() => {
-                      const mondaysDayCheck: boolean = [...formValues].map(day => {
-                        if (day.day === 'Monday') {
-                          return day.isChecked;
-                        } else return;
-                      })[0];
-
-                      const mondaysWorkingHours = [...formValues].map(day => {
-                        if (day.day === 'Monday') {
-                          return day.workingHours;
-                        }
-                      })[0];
-                      const mondaysTimeValues = [...formValues].map(day => {
-                        if (day.day === 'Monday') {
-                          return day.timeValues;
-                        }
-                      })[0];
-                      const mondaysIsCheckedMulti = [...formValues].map(day => {
-                        if (day.day === 'Monday') {
-                          return day.isCheckedMulti;
-                        }
-                      })[0];
-
                       !checkedSameEveryDay &&
                         formValues.forEach(object => {
                           if (object.day !== 'Monday') {
