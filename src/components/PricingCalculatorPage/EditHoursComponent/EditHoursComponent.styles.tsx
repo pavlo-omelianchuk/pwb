@@ -20,7 +20,6 @@ export const EditHours = styled.div<DayCardProps>`
   @media (width < 900px) {
     margin-top: 15px;
   }
-
 `;
 
 export const StyledForm = styled(Form)<DayCardProps>`
@@ -35,7 +34,7 @@ export const StyledForm = styled(Form)<DayCardProps>`
   margin-block-end: 0;
 
   @media (width < 900px) {
-    justify-content: ${props => (props.isCheckedMulti ? 'flex-end' : 'space-between')};
+    justify-content: ${props => (props.$isCheckedMulti ? 'flex-end' : 'space-between')};
     gap: 15px;
     flex-wrap: wrap;
     width: 90%;
@@ -96,7 +95,7 @@ export const StyledStuck = styled(Stack)<DayCardProps>`
   @media (width < 900px) {
     flex-direction: column;
     justify-content: space-between;
-    width: ${props => (props.isCheckedMulti ? '100%' : 'fit-content')};
+    width: ${props => (props.$isCheckedMulti ? '100%' : 'fit-content')};
     height: fit-content;
     gap: 15px;
 
@@ -106,7 +105,7 @@ export const StyledStuck = styled(Stack)<DayCardProps>`
   }
   @media (width < 721px) {
     flex-wrap: wrap;
-    width: ${props => (props.isCheckedMulti ? '50%' : 'fit-content')};
+    width: ${props => (props.$isCheckedMulti ? '50%' : 'fit-content')};
     #morning-hours-block,
     #evening-hours-block {
       /* width: 100%; */

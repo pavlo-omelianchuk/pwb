@@ -186,7 +186,7 @@ export const DayCardComponent = ({
     <DayCard
       isEdit={isEdit}
       checkedDay={currentDayFormValues?.isChecked}
-      isCheckedMulti={currentDayFormValues.isCheckedMulti}
+      $isCheckedMulti={currentDayFormValues.isCheckedMulti}
     >
       <ToggleDayBlock>
         <h5>{displayDay(index)}</h5>
@@ -209,7 +209,7 @@ export const DayCardComponent = ({
         </FormGroup>
       </ToggleDayBlock>
       <DisplayHoursBlockWrapper checkedDay={currentDayFormValues?.isChecked}>
-        <DisplayHoursBlock isEdit={isEdit} isCheckedMulti={currentDayFormValues.isCheckedMulti}>
+        <DisplayHoursBlock isEdit={isEdit} $isCheckedMulti={currentDayFormValues.isCheckedMulti}>
           {!isAllDay ? (
             <div id="display-hours">
               <span>
@@ -249,7 +249,7 @@ export const DayCardComponent = ({
         </DisplayHoursBlock>
         <ThemeProvider theme={theme}>
           {!!isEdit && (
-            <StyledCheckbox isCheckedMulti={currentDayFormValues.isCheckedMulti}>
+            <StyledCheckbox $isCheckedMulti={currentDayFormValues.isCheckedMulti}>
               <FormControlLabel
                 value="Multiple openings"
                 control={

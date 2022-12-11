@@ -10,7 +10,7 @@ export type DayCardProps = {
   isEdit?: boolean;
   checkedDay?: boolean;
   flexEnd?: boolean;
-  isCheckedMulti?: boolean;
+  $isCheckedMulti?: boolean;
 };
 
 export const CheckedIcon = styled.div<CheckedIconProps>`
@@ -62,9 +62,9 @@ export const DayCard = styled.div<DayCardProps>`
 
     min-height: ${props => (props.checkedDay ? '123px ' : '0')};
     height: ${props =>
-      props.isCheckedMulti && props.isEdit
+      props.$isCheckedMulti && props.isEdit
         ? '252px'
-        : !props.isCheckedMulti && props.isEdit
+        : !props.$isCheckedMulti && props.isEdit
         ? '206px'
         : ' '};
     justify-content: flex-start;
@@ -77,9 +77,9 @@ export const DayCard = styled.div<DayCardProps>`
   @media (width < 494px) {
     /* width: fit-content; */
     height: ${props =>
-      props.isCheckedMulti && props.isEdit
+      props.$isCheckedMulti && props.isEdit
         ? '292px'
-        : !props.isCheckedMulti && props.isEdit
+        : !props.$isCheckedMulti && props.isEdit
         ? '250px'
         : ' '};
   }
@@ -139,7 +139,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
     justify-content: space-between;
     /* align-items: center; */
     padding: 0 0 6px;
-    width: ${props => (props.isCheckedMulti ? '240px' : '120px')};
+    width: ${props => (props.$isCheckedMulti ? '240px' : '120px')};
   }
 
   span {

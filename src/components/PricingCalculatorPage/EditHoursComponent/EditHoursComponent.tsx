@@ -47,9 +47,9 @@ export const EditHoursComponent = ({
             handleSubmit();
           }}
         >
-          <StyledForm isCheckedMulti={isMulti}>
+          <StyledForm $isCheckedMulti={isMulti}>
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'en'}>
-              <StyledStuck isCheckedMulti={isMulti}>
+              <StyledStuck $isCheckedMulti={isMulti}>
                 <div id="morning-hours-block">
                   <label htmlFor="morning-date-from">{from}</label>
                   <MobileTimePicker

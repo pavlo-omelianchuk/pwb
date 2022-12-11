@@ -33,7 +33,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
 
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
@@ -47,7 +47,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
         TIME_VALUES.morningEndTimeValue,
@@ -60,7 +60,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
         TIME_VALUES.morningEndTimeValue,
@@ -73,7 +73,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
         TIME_VALUES.morningEndTimeValue,
@@ -86,7 +86,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
         TIME_VALUES.morningEndTimeValue,
@@ -99,7 +99,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
         TIME_VALUES.morningEndTimeValue,
@@ -112,7 +112,7 @@ export const PricingCalculator = () => {
       isChecked: false,
       isCheckedMulti: false,
       totalMeals: 0,
-      workingHours: [...Array(24).keys()],
+      workingHours: [],
       timeValues: [
         TIME_VALUES.morningStartTimeValue,
         TIME_VALUES.morningEndTimeValue,
@@ -201,28 +201,28 @@ export const PricingCalculator = () => {
   };
 
   //Monday's Form Values
-    const mondaysDayCheck: boolean = [...formValues].map(day => {
-      if (day.day === 'Monday') {
-        return day.isChecked;
-      } else return;
-    })[0];
+  const mondaysDayCheck: boolean = [...formValues].map(day => {
+    if (day.day === 'Monday') {
+      return day.isChecked;
+    } else return;
+  })[0];
 
-    const mondaysWorkingHours: number[] = [...formValues].map(day => {
-      if (day.day === 'Monday') {
-        return day.workingHours;
-      }
-    })[0];
-    const mondaysTimeValues = [...formValues].map(day => {
-      if (day.day === 'Monday') {
-        return day.timeValues;
-      }
-    })[0];
+  const mondaysWorkingHours: number[] = [...formValues].map(day => {
+    if (day.day === 'Monday') {
+      return day.workingHours;
+    }
+  })[0];
+  const mondaysTimeValues = [...formValues].map(day => {
+    if (day.day === 'Monday') {
+      return day.timeValues;
+    }
+  })[0];
 
-    const mondaysIsCheckedMulti: boolean = [...formValues].map(day => {
-      if (day.day === 'Monday') {
-        return day.isCheckedMulti;
-      }
-    })[0];
+  const mondaysIsCheckedMulti: boolean = [...formValues].map(day => {
+    if (day.day === 'Monday') {
+      return day.isCheckedMulti;
+    }
+  })[0];
 
   return (
     <SectionWrapper>
@@ -238,7 +238,7 @@ export const PricingCalculator = () => {
           </div>
           <div>{perMonth}</div>
           {RESULT_BLOCK_ICONS.map((image: any, key: number) => {
-            return <img src={image} id={`icon-${key.toLocaleString()}`} width="50px" />;
+            return <img key={key} src={image} id={`icon-${key.toLocaleString()}`} width="50px" />;
           })}
         </ResultWrapper>
       </div>
