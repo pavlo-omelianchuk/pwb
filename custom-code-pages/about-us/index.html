@@ -134,6 +134,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
     integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <style>
+    #our-values-carousel .owl-stage {
+    	display: flex;
+    }
+    
+    #our-values-carousel .owl-item {
+    	flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
     #our-values-carousel .owl-nav button {
       width: 40px;
       height: 40px;
@@ -172,32 +182,30 @@
       background-image: url(https://uploads-ssl.webflow.com/636333d38401f1c84fb4d0e0/63647c230826494b033597c8_angle-right.png);
     }
 
-    @media (width > 1300px) {
-      #our-values-carousel .owl-nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        position: absolute;
-        width: 111%;
-        top: 50%;
-        left: -66px;
-        transform: translateY(-50%);
-      }
+   @media only screen and (min-width: 1300px) {
+          #our-values-carousel .owl-nav {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: absolute;
+      width: 111%;
+      top: 50%;
+      left: -66px;
+      transform: translateY(-50%);
     }
-
-    @media (width <=1300px) {
+    }
+    @media only screen and (max-width: 1299px) {
       #our-values-carousel .owl-nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        position: relative;
-        width: 95%;
-        margin: auto;
-        top: 40px;
-        /* left: -66px; */
-        transform: translateY(-50%);
-      }
-
+      	display: flex;
+      	flex-direction: row;
+      	justify-content: space-between;
+      	position: relative;
+      	width: 95%;
+      	margin: auto;
+      	top: 40px;
+      	/* left: -66px; */
+      	transform: translateY(-50%);
+     }
     }
   </style>
 </head>
