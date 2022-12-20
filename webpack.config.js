@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-const version = '14';
+const version = '14.01';
 
 module.exports = {
   entry: './src/index.tsx',

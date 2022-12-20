@@ -54,7 +54,7 @@ export const DayCard = styled.div<DayCardProps>`
     display: ${props => (props.isEdit ? 'block ' : 'none')};
     transition: all ease-in-out 500ms;
   }
-  @media (width < 900px) {
+  @media only screen and (max-width: 900px) {
     max-width: 90vw;
     transition: all ease-in-out 500ms;
     padding: 19px 15px;
@@ -74,7 +74,7 @@ export const DayCard = styled.div<DayCardProps>`
       margin: 10px 0;
     }
   }
-  @media (width < 494px) {
+  @media only screen and (max-width: 494px) {
     /* width: fit-content; */
     height: ${props =>
       props.$isCheckedMulti && props.isEdit
@@ -94,12 +94,12 @@ export const ToggleDayBlock = styled.div`
   h5 {
     font-size: inherit;
   }
-  @media (width < 900px) {
+  @media only screen and (max-width: 900px) {
     width: 90%;
     margin: 0 auto;
     justify-content: space-between;
   }
-  @media (width < 650px) {
+  @media only screen and (max-width: 650px) {
     width: 100%;
   }
 `;
@@ -110,7 +110,7 @@ export const DisplayHoursBlockWrapper = styled.div<DayCardProps>`
   position: relative;
   top: ${props => (props.checkedDay ? '0 ' : '-5px')};
 
-  @media (width < 900px) {
+  @media only screen and (max-width: 900px) {
     width: 90%;
     display: flex;
     margin: 0 auto;
@@ -120,7 +120,7 @@ export const DisplayHoursBlockWrapper = styled.div<DayCardProps>`
     align-items: center;
     gap: 15px;
   }
-  @media (width < 650px) {
+  @media only screen and (max-width: 650px) {
     width: 100%;
   }
 `;
@@ -147,7 +147,7 @@ export const DisplayHoursBlock = styled.div<DayCardProps>`
     top: 4px;
     font-size: 14px;
   }
-  @media (width < 900px) {
+  @media only screen and (max-width: 900px) {
     width: 100%;
     justify-content: space-between;
     align-items: center;
@@ -171,7 +171,7 @@ export const StyledCheckbox = styled.div<DayCardProps>`
       top: 2px;
     }
   }
-  @media (width < 900px) {
+  @media only screen and (max-width: 900px) {
     label {
       & > span {
         padding-left: 0;
@@ -246,7 +246,7 @@ export const StyledFormControlLabel = styled(FormControlLabel)`
     font-family: inherit;
   }
 
-  @media (width < 900px) {
+  @media only screen and (max-width: 900px) {
     position: relative;
     left: 0;
     top: 0;

@@ -97,7 +97,7 @@ export const ResultWrapper = styled.div`
     z-index: 1;
   }
 
-  @media (width < 650px) {
+  @media only screen and (max-width: 650px) {
     justify-content: center;
     height: 280px;
     margin: 0;
@@ -146,7 +146,6 @@ export const SliderWrapper = styled.div`
 `;
 
 export const SitesSlider = styled(Slider)`
-
   & .MuiSlider-track {
     color: #f16d4d;
     border-radius: 15px 0 0 15px;
@@ -200,5 +199,4 @@ export const DaysWrapper = styled.div`
   justify-content: flex-start;
   margin: 80px auto 0;
   max-width: 792px;
-
 `;
